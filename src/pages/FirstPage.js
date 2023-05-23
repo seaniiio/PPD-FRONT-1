@@ -1,23 +1,15 @@
 import '../App.css';
 import Top from '../components/Top'
-import {JoinMembership} from './JoinMembership'
-import personImg from '../images/icon_person.png'
+import Button from '../components/Button'
+import Center from '../components/Center'
+import JoinMembership from './JoinMembership'
+import MainPage from './MainPage'
+
 import {Link} from 'react-router-dom'
 
 
-function Center(props) {
-  if(props.img === 'person') {
-    return <div className="center">
-      <img src={personImg} className="image"></img>
-    </div>
-  }
-}
 
-function Button(props) {
-  return <div className="center">
-      <button>{props.name}</button>
-    </div>
-}
+
 
 function Login(props) {
   return <article>
@@ -32,7 +24,7 @@ function FirstPage() {
     <div>
       <Top state='invisible'></Top>
       <Center img='person'></Center>
-      <Button name="로그인"></Button>
+      <Link to="/Main"><Button name="로그인"></Button></Link>
       <Login></Login>
       <div className="join"><Link to="/Join">회원가입</Link></div>
     </div>

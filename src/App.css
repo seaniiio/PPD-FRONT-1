@@ -32,14 +32,7 @@
   border: 0;
   background-color:lightgray;
 }
-button {
-  background-color:lightgray;
-  width:150px;
-  height:70px;
-  position:relative;
-  top:400px;
-  font-size:20px;
-}
+
 .join {
   text-align:center;
   position:relative;
