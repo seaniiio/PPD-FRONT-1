@@ -7,15 +7,10 @@ import MainPage from './MainPage'
 
 import {Link} from 'react-router-dom'
 
-
-
-
-
 function Login(props) {
   return <article>
     <p className="login">아이디 <input type="text" className="loginBox"></input></p>
     <p className="login">비밀번호 <input type="text" className="loginBox"></input></p>
-
   </article>
 }
 
