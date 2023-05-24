@@ -7,6 +7,13 @@ import MainPage from './MainPage'
 import styled from 'styled-components';
 import {Link} from 'react-router-dom'
 
+<<<<<<< HEAD
+function Login(props) {
+  return <article>
+    <p className="login">아이디 <input type="text" className="loginBox"></input></p>
+    <p className="login">비밀번호 <input type="text" className="loginBox"></input></p>
+  </article>
+=======
 //로그인 페이지에서 "아이디", "비밀번호" 텍스트
 const LoginPageText = styled.div `
   margin-left:20px;
@@ -37,6 +44,7 @@ function Login(props) {
     <p><LoginPageText>아이디 <LoginBox /></LoginPageText></p>
     <p><LoginPageText>비밀번호 <LoginBox /></LoginPageText></p>
   </div>
+>>>>>>> main
 }
 
 function FirstPage() {
