@@ -1,3 +1,4 @@
+//버튼에 대한 컴포넌트
 import '../App.css';
 import styled from 'styled-components';
 
@@ -11,50 +12,43 @@ const StyledButton = styled.button `
   width:150px;
   height:70px;
   font-size:20px;
-
+  position: relative;
+  top: 20px;
+  border:none;
+  border-radius:10px;
 `;
+
 // MainPage의 측정시작 버튼(크기가 큰 버튼)
-const StyledButtonBig = styled.button `
-  background-color:lightgray;
+//StyledButton 상속받음
+const StyledButtonBig = styled(StyledButton) `
   width:300px;
   height:100px;
   font-size:40px;
 `;
 
-//하나의 작은 버튼만 나타낼 때
-const SmallButtonWrapper = styled.div `
-  position:absolute;
-  top:700px;
-  text-align:center;
-  left:50%;
-  transform:translateX(-50%);
-`;
-
-//하나의 큰 버튼만 나타낼 때
-const BigButtonWrapper = styled.div `
-  position:absolute;
-  top:600px;
+//하나의 버튼만 나타낼 때
+const SingleButtonWrapper = styled.div `
+  position:relative;
   text-align:center;
   left:50%;
   transform:translateX(-50%);
 `;
 
 //한 행에 두 개의 버튼을 나타낼 때
-//relative
 //inline속성이어야 두 개를 나타낼 수 있음
 const ManyButtonWrapper = styled.div `
   display:inline-block;
-  padding: 5px;
+  padding: 2px;
   position:relative;
-  top:350px;
+  top:10px;
 `;
 
 const Button = (props) => {
     if(props.show === 'big') {
       return (<div>
-        <BigButtonWrapper >
+        <SingleButtonWrapper >
          <StyledButtonBig >{props.name}</StyledButtonBig>
-        </BigButtonWrapper>
+        </SingleButtonWrapper>
 
       </div>)
     }
@@ -69,9 +63,9 @@ const Button = (props) => {
     }
     else {
     return (<div>
-        <SmallButtonWrapper>
+        <SingleButtonWrapper>
          <StyledButton >{props.name}</StyledButton>
-        </SmallButtonWrapper>
+        </SingleButtonWrapper>
       </div>)
     }
 }
