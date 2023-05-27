@@ -8,42 +8,59 @@ import styled from 'styled-components';
 
 
 
-// 개인정보이용 동의서 중심에 맞추려고 하는데 페이지 크기에 따라 위치가 계속 달라짐...
+// InformationText1~5 FirstPage에서 LoginBox와 마찬가지로 진행
+// 더 좋은 방법 있을 것
 const InformationText = styled.div `
-  display:inline-block;
-  margin-left:20px;
+  text-align : center;
+  margin-left: -180px;
   font-size:30px;
   font-weight:bolder;
 `
-const InputInformation = styled.input `
-  position:absolute;
-  left:150px;
+const InputInformation1 = styled.input `
+  position:relative;
+  left:60px;
   width:150px;
   height:30px;
   font-size:20px;
-  outline: none;
   border: 0;
   background-color:lightgray;
-  padding-left: 10px;
 `
-
-
-// 체크박스연결에 대해서 알아봐야함.
-/*
-function Checkbox({ children, disabled, checked, onChange }) {
-  return (
-      <>
-        <input
-          type="checkbox"
-          disabled={disabled}
-          checked={checked}
-          onChange={({ target: { checked } }) => onChange(checked)}
-        />
-        {children}
-        </>
-  );
-}
-*/
+const InputInformation2 = styled.input `
+  position:relative;
+  left:47px;
+  width:150px;
+  height:30px;
+  font-size:20px;
+  border: 0;
+  background-color:lightgray;
+`
+const InputInformation3 = styled.input `
+  position:relative;
+  left:34px;
+  width:150px;
+  height:30px;
+  font-size:20px;
+  border: 0;
+  background-color:lightgray;
+`
+const InputInformation4 = styled.input `
+  position:relative;
+  left:47px;
+  width:150px;
+  height:30px;
+  font-size:20px;
+  border: 0;
+  background-color:lightgray;
+`
+const InputInformation5 = styled.input `
+  position:relative;
+  left:60px;
+  width:150px;
+  height:30px;
+  font-size:20px;
+  border: 0;
+  background-color:lightgray;
+`
 
 //개인정보 활용 동의 스크롤 창
 const TextContainer = styled.div `
@@ -61,9 +78,10 @@ const TextContainer = styled.div `
 
 //체크박스
 const CheckBoxWrapper = styled.div `
-  position: relative;
-  left:280px;
-  top: 20px;
+  text-align : center;
+  position :relative;
+  left:125px;
+  top:20px;
 `
 
 //코드 긁어왔습니다..
@@ -86,18 +104,20 @@ const CheckBoxInput = styled.input `
 function Information(){
   return (
   <div>
-    <p><InformationText>이름<InputInformation /></InformationText></p>
     <p>
-      <InformationText>아이디<InputInformation /></InformationText>
-      <Button name="중복확인" show="small"></Button>
+      <InformationText>이름<InputInformation1 /></InformationText>
     </p>
-    <p><InformationText>비밀번호<InputInformation /></InformationText></p>
-    <p><InformationText>이메일<InputInformation /></InformationText></p>
-    <p><InformationText>나이<InputInformation /></InformationText></p>
+
+    <p>
+      <InformationText>아이디<InputInformation2 /></InformationText>
+      <Button name="중복확인" show="중복"></Button>
+    </p>
+    <p><InformationText>비밀번호<InputInformation3 /></InformationText></p>
+    <p><InformationText>이메일<InputInformation4 /></InformationText></p>
+    <p><InformationText>나이<InputInformation5 /></InformationText></p>
   </div>
   )
 }
-
 
 //회원가입 페이지
 function JoinMembership() {
@@ -106,8 +126,7 @@ function JoinMembership() {
         <Top state='visible' text='회원가입'></Top>
         <Information></Information>
         <TextContainer> 개인정보 활용 동의 text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text t</TextContainer>
-        <CheckBoxWrapper>
-        동의<CheckBoxInput type="checkbox"></CheckBoxInput>
+        <CheckBoxWrapper>동의<CheckBoxInput type="checkbox"></CheckBoxInput>
         </CheckBoxWrapper>
         <p><Link to="/Main"><Button name="가입하기"></Button></Link></p>
       </div>
