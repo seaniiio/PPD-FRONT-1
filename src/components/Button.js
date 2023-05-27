@@ -48,6 +48,13 @@ const SingleButtonWrapperInline = styled.div `
 
 `;
 
+const SingleButtonWrapperInline2 = styled.div `
+  position:relative;
+  text-align:center;
+  left:130px;
+  bottom:50px;
+`;
+
 //한 행에 두 개의 버튼을 나타낼 때
 //inline속성이어야 두 개를 나타낼 수 있음
 const ManyButtonWrapper = styled.div `
@@ -75,6 +82,15 @@ const Button = (props) => {
         </> 
       )
     }
+    else if(props.show === '중복') {
+      return (
+        <>
+        <SingleButtonWrapperInline2>
+         <StyledButtonSmall >{props.name}</StyledButtonSmall >
+        </SingleButtonWrapperInline2>
+        </> 
+      )
+      }
     else if(props.show === 'many') {
       return (
         <>
