@@ -49,10 +49,11 @@ const SingleButtonWrapperInline = styled.div `
 `;
 
 const SingleButtonWrapperInline2 = styled.div `
-  position:relative;
+  display:inline-block; 
+  position:absolute;
   text-align:center;
-  left:130px;
-  bottom:50px;
+  left:70%;
+  top:36px;
 `;
 
 //한 행에 두 개의 버튼을 나타낼 때
