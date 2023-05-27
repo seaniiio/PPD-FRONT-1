@@ -29,17 +29,13 @@ const LoginBox = styled.input `
   font-size:20px;
   border: 0;
   background-color:lightgray;
+  padding-left: 10px;
 `
 //position을 relative해서 맞추려니 아이디, 비밀번호 글자수에 따라서 위치가 변경돼
 //loginbox2만든 것임. 더 좋은 방법 있을 것.
-const LoginBox2 = styled.input `
-  position:relative;
+const LoginBox2 = styled(LoginBox) `
   left:27px;
   width:200px;
-  height:40px;
-  font-size:20px;
-  border: 0;
-  background-color:lightgray;
 `
 
 //회원가입 글자

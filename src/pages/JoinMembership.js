@@ -1,4 +1,3 @@
-import '../App.css';
 import Top from '../components/Top'
 import Button from '../components/Button'
 import Center from '../components/Center'
@@ -10,13 +9,13 @@ import styled from 'styled-components';
 
 // InformationText1~5 FirstPage에서 LoginBox와 마찬가지로 진행
 // 더 좋은 방법 있을 것
-const InformationText = styled.div `
+export const InformationText = styled.div `
   text-align : center;
   margin-left: -180px;
   font-size:30px;
   font-weight:bolder;
 `
-const InputInformation1 = styled.input `
+export const InputInformation1 = styled.input `
   position:relative;
   left:60px;
   width:150px;
@@ -24,42 +23,19 @@ const InputInformation1 = styled.input `
   font-size:20px;
   border: 0;
   background-color:lightgray;
+  padding-left:6px;
 `
-const InputInformation2 = styled.input `
-  position:relative;
+export const InputInformation2 = styled(InputInformation1) `
   left:47px;
-  width:150px;
-  height:30px;
-  font-size:20px;
-  border: 0;
-  background-color:lightgray;
 `
-const InputInformation3 = styled.input `
-  position:relative;
+export const InputInformation3 = styled(InputInformation1) `
   left:34px;
-  width:150px;
-  height:30px;
-  font-size:20px;
-  border: 0;
-  background-color:lightgray;
 `
-const InputInformation4 = styled.input `
-  position:relative;
+export const InputInformation4 = styled(InputInformation1) `
   left:47px;
-  width:150px;
-  height:30px;
-  font-size:20px;
-  border: 0;
-  background-color:lightgray;
 `
-const InputInformation5 = styled.input `
-  position:relative;
+export const InputInformation5 = styled(InputInformation1) `
   left:60px;
-  width:150px;
-  height:30px;
-  font-size:20px;
-  border: 0;
-  background-color:lightgray;
 `
 
 //개인정보 활용 동의 스크롤 창
