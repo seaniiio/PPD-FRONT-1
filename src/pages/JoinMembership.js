@@ -24,7 +24,7 @@ const InputInformation = styled.input `
   outline: none;
   border: 0;
   background-color:lightgray;
-  margin-left: 10px;
+  padding-left: 10px;
 `
 
 
