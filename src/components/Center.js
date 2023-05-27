@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const CenterArea = styled.div `
   text-align:center;
   position: relative;
-  height:500px;
+  height:450px;
 `
 //이미지를 보여줄 때
 const ShowImage = styled.img `

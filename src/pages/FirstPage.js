@@ -14,32 +14,20 @@ import { useMediaQuery } from 'react-responsive';
 // 반응형으로 바꿔야함
 //로그인 페이지에서 "아이디", "비밀번호" 텍스트
 const LoginPageText = styled.div `
-  text-align : center;
-  margin-left: -140px;
   font-size:30px;
   font-weight:bolder;
 `
 // 반응형으로 바꿔야함
 //아이디, 비밀번호 입력하는 부분
 const LoginBox = styled.input `
-  position:relative;
-  left:40px;
+  position:absolute;
+  left:40%;
   width:200px;
   height:40px;
   font-size:20px;
   border: 0;
   background-color:lightgray;
-`
-//position을 relative해서 맞추려니 아이디, 비밀번호 글자수에 따라서 위치가 변경돼
-//loginbox2만든 것임. 더 좋은 방법 있을 것.
-const LoginBox2 = styled.input `
-  position:relative;
-  left:27px;
-  width:200px;
-  height:40px;
-  font-size:20px;
-  border: 0;
-  background-color:lightgray;
+  padding-left: 10px;
 `
 
 //회원가입 글자
@@ -50,17 +38,25 @@ const Join = styled.div `
 `
 function Login(props) {
   return <div>
-    <p><LoginPageText>아이디 <LoginBox /></LoginPageText></p>
-    <p><LoginPageText>비밀번호 <LoginBox2 /></LoginPageText></p>
+    <p><LoginPageText>이메일 <LoginBox /></LoginPageText></p>
+    <p><LoginPageText>비밀번호 <LoginBox /></LoginPageText></p>
   </div>
 }
+
+//아이디, 비밀번호 입력부분 감싸는 container
+const LoginContainer = styled.div `
+  position:relative;
+  width:400px;
+  padding: 10px;
+  margin: auto;
+`
 
 function FirstPage() {
   return (
     <div>
       <Top state='invisible'></Top>
       <Center img='person'></Center>
-      <Login></Login>
+      <LoginContainer><Login></Login></LoginContainer>
       <Link to="/Main"><Button name="로그인"></Button></Link>
       <Join><Link to="/Join">회원가입</Link></Join>
     </div>

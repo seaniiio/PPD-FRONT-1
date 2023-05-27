@@ -1,4 +1,3 @@
-import '../App.css';
 import Top from '../components/Top'
 import Button from '../components/Button'
 import Center from '../components/Center'
@@ -8,53 +7,14 @@ import styled from 'styled-components';
 
 
 
-// InformationText1~5 FirstPage에서 LoginBox와 마찬가지로 진행
-// 더 좋은 방법 있을 것
-const InformationText = styled.div `
-  text-align : center;
-  margin-left: -180px;
+//글자는 수직정렬
+export const InformationText = styled.span `
   font-size:30px;
   font-weight:bolder;
 `
-const InputInformation1 = styled.input `
-  position:relative;
-  left:60px;
-  width:150px;
-  height:30px;
-  font-size:20px;
-  border: 0;
-  background-color:lightgray;
-`
-const InputInformation2 = styled.input `
-  position:relative;
-  left:47px;
-  width:150px;
-  height:30px;
-  font-size:20px;
-  border: 0;
-  background-color:lightgray;
-`
-const InputInformation3 = styled.input `
-  position:relative;
-  left:34px;
-  width:150px;
-  height:30px;
-  font-size:20px;
-  border: 0;
-  background-color:lightgray;
-`
-const InputInformation4 = styled.input `
-  position:relative;
-  left:47px;
-  width:150px;
-  height:30px;
-  font-size:20px;
-  border: 0;
-  background-color:lightgray;
-`
-const InputInformation5 = styled.input `
-  position:relative;
-  left:60px;
+export const InputInformation = styled.input `
+  position:absolute;
+  left:30%;
   width:150px;
   height:30px;
   font-size:20px;
@@ -64,12 +24,9 @@ const InputInformation5 = styled.input `
 
 //개인정보 활용 동의 스크롤 창
 const TextContainer = styled.div `
-  display: inline-box;
-  position:relative;
+  margin: auto;
   text-align:center;
-  left:50%;
   top:20px;
-  transform:translateX(-50%);
   overflow:scroll;
   width:300px;
   height:250px;
@@ -100,21 +57,24 @@ const CheckBoxInput = styled.input `
     background-color: blue;
   }
 `
+//이름~나이까지의 Information component를 포함하는 container
+export const InformationContainer = styled.div `
+  position: relative;
+  text-aling: center;
+  width:400px;
+  margin:auto;
+  padding-left:10px;
+`
 
 function Information(){
   return (
   <div>
     <p>
-      <InformationText>이름<InputInformation1 /></InformationText>
+      <InformationText>이름<InputInformation /></InformationText>
     </p>
-
-    <p>
-      <InformationText>아이디<InputInformation2 /></InformationText>
-      <Button name="중복확인" show="중복"></Button>
-    </p>
-    <p><InformationText>비밀번호<InputInformation3 /></InformationText></p>
-    <p><InformationText>이메일<InputInformation4 /></InformationText></p>
-    <p><InformationText>나이<InputInformation5 /></InformationText></p>
+    <p><InformationText>이메일<InputInformation /></InformationText></p>
+    <p><InformationText>비밀번호<InputInformation /></InformationText></p>
+    <p><InformationText>나이<InputInformation /></InformationText></p>
   </div>
   )
 }
@@ -122,14 +82,15 @@ function Information(){
 //회원가입 페이지
 function JoinMembership() {
     return (
-      <div>
+      <>
         <Top state='visible' text='회원가입'></Top>
-        <Information></Information>
+        <InformationContainer><Information></Information></InformationContainer>
         <TextContainer> 개인정보 활용 동의 text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text t</TextContainer>
         <CheckBoxWrapper>동의<CheckBoxInput type="checkbox"></CheckBoxInput>
         </CheckBoxWrapper>
         <p><Link to="/Main"><Button name="가입하기"></Button></Link></p>
-      </div>
+        
+        </>
     )
 }
 
