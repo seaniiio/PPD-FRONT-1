@@ -24,6 +24,7 @@ function FirstPage() {
       <Login></Login>
       <div className="join"><Link to="/Join">회원가입</Link></div>
     </div>
-  );
+  )
+}
 
 export default FirstPage;
