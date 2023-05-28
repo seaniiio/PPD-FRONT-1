@@ -32,6 +32,7 @@ const StyledButtonSmall = styled(StyledButton) `
   height:30px;
   font-size:12px;
 `
+
 //하나의 버튼만 가운데정렬해서 나타낼 때
 const SingleButtonWrapper = styled.div `
   position:relative;
@@ -48,13 +49,7 @@ const SingleButtonWrapperInline = styled.div `
 
 `;
 
-const SingleButtonWrapperInline2 = styled.div `
-  display:inline-block; 
-  position:absolute;
-  text-align:center;
-  left:70%;
-  top:36px;
-`;
+
 
 //한 행에 두 개의 버튼을 나타낼 때
 //inline속성이어야 두 개를 나타낼 수 있음
@@ -83,15 +78,7 @@ const Button = (props) => {
         </> 
       )
     }
-    else if(props.show === '중복') {
-      return (
-        <>
-        <SingleButtonWrapperInline2>
-         <StyledButtonSmall >{props.name}</StyledButtonSmall >
-        </SingleButtonWrapperInline2>
-        </> 
-      )
-      }
+
     else if(props.show === 'many') {
       return (
         <>
