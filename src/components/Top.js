@@ -48,9 +48,11 @@ const Top = (props) => {
       return (
         <TopBar>
           <TopBarText>{props.text}</TopBarText>
+          {/*
           <Link to="/ChangeInfo">
             <EditButton>정보수정</EditButton>
           </Link>
+          */}
         </TopBar>
       )
     }
