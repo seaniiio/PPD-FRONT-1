@@ -6,8 +6,8 @@ import MainPage from './pages/MainPage'
 import Measure from './pages/Measure'
 import MyInformation from './pages/MyInformation';
 import MyRecords from './pages/MyRecords';
+import ChangeInformation from './pages/ChangeInformation';
 import {Routes, Route} from 'react-router-dom'
-
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
       <Route path="/Measure" element={<Measure />} />
       <Route path="/MyInfo" element={<MyInformation />} />
       <Route path="/MyRecords" element={<MyRecords />} />
-
+      <Route path="/ChangeInfo" element={<ChangeInformation />} />
     </Routes>
   );
 }
