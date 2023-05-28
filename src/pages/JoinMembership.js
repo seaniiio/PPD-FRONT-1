@@ -60,7 +60,6 @@ const CheckBoxInput = styled.input `
 //이름~나이까지의 Information component를 포함하는 container
 export const InformationContainer = styled.div `
   position: relative;
-  text-aling: center;
   width:400px;
   margin:auto;
   padding-left:10px;
