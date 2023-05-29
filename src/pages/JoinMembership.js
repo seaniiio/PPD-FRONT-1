@@ -1,9 +1,11 @@
 import Top from '../components/Top'
 import Button from '../components/Button'
 import Center from '../components/Center'
+import {JoinModal} from '../components/Modal'
 import {Link} from 'react-router-dom'
-import {memo} from 'react';
+import {memo, useState} from 'react';
 import styled from 'styled-components';
+import '../styles/DivButton.css';
 
 
 
@@ -80,6 +82,14 @@ function Information(){
 
 //회원가입 페이지
 function JoinMembership() {
+    const [modalOpen, setModalOpen] = useState(false);
+    function openModal() {
+      setModalOpen(true);
+    }
+    function closeModal() {
+      setModalOpen(false);
+    }
+
     return (
       <>
         <Top state='visible' text='회원가입'></Top>
@@ -87,8 +97,9 @@ function JoinMembership() {
         <TextContainer> 개인정보 활용 동의 text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text t</TextContainer>
         <CheckBoxWrapper>동의<CheckBoxInput type="checkbox"></CheckBoxInput>
         </CheckBoxWrapper>
-        <p><Link to="/Main"><Button name="가입하기"></Button></Link></p>
+        <p><div className="buttonDiv"><p className="buttonDivText" onClick={openModal}>가입하기</p></div></p>
         
+        {modalOpen ? <JoinModal header="가입이 완료되었습니다" open={modalOpen} cloas={closeModal}></JoinModal> : null}
         </>
     )
 }

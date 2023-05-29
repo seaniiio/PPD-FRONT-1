@@ -43,6 +43,47 @@ export const EditModal =(props) => {
       )
 };
 
+// 비밀번호를 입력받는 모달
+export const pwdInputModal = (props) => {
+  return (
+    <div className={props.open ? 'openModal modal' : 'modal'}>
+      {props.open ? (
+          <section>
+          <header>
+              {props.header}
+          </header>
+          <main><input type="password" clssName="pswInput" /></main>
+          <footer>
+             <Link to="/Main"><button onClick={props.close}>취소</button></Link>
+             <Link to="/MyInfo"><button onClick={props.close}>확인</button></Link>
+          </footer>
+          </section>
+      ) : null}
+    </div>
+  )
+}
+
+// 가입하기 버튼을 누르면 나오는 모달
+// 확인버튼을 누르면 MainPage.js로 이동한다
+export function JoinModal(props) {
+  return (
+      <div className={props.open ? 'openModal modal' : 'modal'}>
+        {props.open ? (
+            <section>
+            <header>
+                {props.header}
+            </header>
+            <main>메인 페이지로 이동합니다.</main>
+            <footer>
+               <Link to="/Main"><button onClick={props.close}>확인</button></Link>
+            </footer>
+            </section>
+        ) : null}
+      </div>
+    )
+}
+
+
 // 회원탈퇴를 누르면 나오는 모달
 // 취소버튼과 탈퇴버튼을 띄운다.
 export function Modal(props) {
