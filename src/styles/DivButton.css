@@ -50,3 +50,16 @@ button모양의 div를 정의
   .smallEditButtonHide {
     display:none;
   }
+
+  .selectEmail {
+    position: absolute;
+    right: 18%;
+    height:30px;
+    font-weight:bold;
+  }
+
+  .showAt {
+    position: absolute;
+    left: 56%;
+    top: 25%;
+  }
