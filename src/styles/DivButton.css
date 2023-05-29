@@ -1,8 +1,9 @@
-  /* 
-  Button 컴포넌트의 크기만큼을 차지하는 div
-  onClick 이벤트를 사용하기 위해 Button컴포넌트가 아닌 DOM 요소를 사용해야 해서 필요하다.
-  */
-  .buttonDiv {
+/*
+button모양의 div를 정의
+이벤트를 발생시키기 위해 사용
+*/
+
+.buttonDiv {
     background-color:lightgray;
     width:150px;
     height:70px;
@@ -15,7 +16,6 @@
   .buttonDivText {
     text-align: center;
     padding-top: 20px;
-    text-decoration: none;
   }
 
   .editButton {
