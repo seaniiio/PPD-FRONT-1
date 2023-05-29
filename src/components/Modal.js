@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 import {useState} from 'react';
 //Modal에 대한 css 정보들은 styles/ModalStyles.css에 저장되어있다
 
+// 회원 탈퇴하고 나서, 정상적으로 탈퇴되었음을 알리는 모달창
+// 확인버튼을 띄우고, 누르면 FirstPage로 돌아간다.
 function DeleteModal(props) {
     return (
         <div className={props.open ? 'openModal modal' : 'modal'}>
@@ -21,7 +23,29 @@ function DeleteModal(props) {
       )
 }
 
-function Modal(props) {
+// 수정하기 버튼을 누르고 정보가 변경됐음을 알리는 모달창
+// 확인버튼을 띄우고, 누르면 정보수정버튼을 누르기 전 화면(수정하기 버튼들이 없는 화면)을 띄워준다.
+export const EditModal =(props) => {
+    return (
+        <div className={props.open ? 'openModal modal' : 'modal'}>
+          {props.open ? (
+              <section>
+              <header>
+                  {props.header}
+              </header>
+              <main>정보가 변경되었습니다.</main>
+              <footer>
+                <button onClick={props.close}>확인</button>
+              </footer>
+              </section>
+          ) : null}
+        </div>
+      )
+};
+
+// 회원탈퇴를 누르면 나오는 모달
+// 취소버튼과 탈퇴버튼을 띄운다.
+export function Modal(props) {
 
     //모달의 open상태. true이면 모달 open
     const [modalOpen, setModalOpen] = useState(false);
@@ -56,6 +80,3 @@ function Modal(props) {
     )
 
 }
-
-
-export default Modal;
