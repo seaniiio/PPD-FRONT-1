@@ -22,6 +22,19 @@ export const InputInformation = styled.input `
   font-size:20px;
   border: 0;
   background-color:lightgray;
+  border-radius: 10px;
+`
+// 이메일 입력칸
+const InputInformationSmall = styled(InputInformation) `
+  width:100px;
+`
+const InputEmail = styled(InputInformation) `
+  position: absolute;
+  font-size:18px;
+  left: 64%;
+  width:100px;
+  border: 0;
+  text-align: center;
 `
 
 //개인정보 활용 동의 스크롤 창
@@ -68,12 +81,32 @@ export const InformationContainer = styled.div `
 `
 
 function Information(){
+  const emailList = ["@naver.com", '@daum.net', '@gmail.com', '@nate.com', '직접입력'];
+  const [Selected, setSelected] = useState("");
+
+  const handleSelect = (e) => {
+    setSelected(e.target.value);
+  }
   return (
   <div>
     <p>
       <InformationText>이름<InputInformation /></InformationText>
     </p>
-    <p><InformationText>이메일<InputInformation /></InformationText></p>
+    <p><InformationText>이메일<InputInformationSmall />
+    {Selected === '직접입력' ? 
+    <><span className="showAt">@</span><InputEmail />{/* showAt은 DivButton.css에 정의 */}</>
+    :
+    <select className="selectEmail" onChange={handleSelect} value={Selected}> {/* selectEmail은 DivButton.css에 정의 */}
+      {emailList.map((item) => (
+        <option value={item} key={item}>
+          {item}
+        </option>
+      ))}
+    </select>
+    }
+    
+
+    </InformationText></p>
     <p><InformationText>비밀번호<InputInformation /></InformationText></p>
     <p><InformationText>나이<InputInformation /></InformationText></p>
   </div>
@@ -82,6 +115,8 @@ function Information(){
 
 //회원가입 페이지
 function JoinMembership() {
+
+    // 가입완료 모달창에 대한 상태변수
     const [modalOpen, setModalOpen] = useState(false);
     function openModal() {
       setModalOpen(true);
