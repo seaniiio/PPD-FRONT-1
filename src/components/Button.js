@@ -16,6 +16,9 @@ const StyledButton = styled.button `
   top: 20px;
   border:none;
   border-radius:20px;
+  ${props => props.how === 'many' && `
+    font-weight: bolder;
+  `}
 `;
 
 // MainPage의 측정시작 버튼(크기가 큰 버튼)
@@ -24,6 +27,7 @@ const StyledButtonBig = styled(StyledButton) `
   width:300px;
   height:100px;
   font-size:40px;
+  font-weight: bolder;
 `;
 
 //JoinMembership의 중복확인 버튼(크기가 작은 버튼)
@@ -83,7 +87,7 @@ const Button = (props) => {
       return (
         <>
         <ManyButtonWrapper>
-         <StyledButton >{props.name}</StyledButton >
+         <StyledButton how="many">{props.name}</StyledButton >
         </ManyButtonWrapper>
         </> 
       )

@@ -1,3 +1,4 @@
+import '../App.css';
 import '../styles/MyInformationStyles.css';
 import Top from '../components/Top'
 import Button from '../components/Button'

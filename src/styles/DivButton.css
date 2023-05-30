@@ -8,8 +8,10 @@ button모양의 div를 정의
   width:150px;
   height:70px;
   font-size:20px;
-  border:none;
+  border-radius: 20px;
   margin: auto;
+  position: relative;
+  top: 30px;
 }
 
   .buttonDivText {
@@ -19,7 +21,6 @@ button모양의 div를 정의
   }
 
   .editButton {
-    display: inline-box;
     text-align: center;
     padding-top: 10px;
     background-color:white;
@@ -29,7 +30,11 @@ button모양의 div를 정의
     position: absolute;
     top: 10px;
     right: 6%;
-    border:none;
+    border-radius: 20px;
+  }
+
+  .editButton:hover {
+    background-color:#8d8e8f;
   }
 
   .smallEditButtonShow {
@@ -65,4 +70,11 @@ button모양의 div를 정의
     left: 56%;
     top: 25%;
     
+  }
+
+  /*체크박스 옆 글자*/
+  .agreeText {
+    position: absolute;
+    right: 100px;
+    bottom: 4px;
   }
