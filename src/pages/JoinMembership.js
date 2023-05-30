@@ -23,6 +23,9 @@ export const InputInformation = styled.input `
   border: 1px solid black;
   background-color:#f2f2f2;
   border-radius: 20px;
+  ${props => props.type === 'password' && `
+     font: normal 62.5% "Lucida Sans Unicode",sans-serif;
+    `}
 `
 // 이메일 입력칸
 const InputInformationSmall = styled(InputInformation) `
@@ -108,7 +111,7 @@ function Information(){
     
 
     </InformationText></p>
-    <p><InformationText>비밀번호<InputInformation /></InformationText></p>
+    <p><InformationText>비밀번호<InputInformation type='password'/></InformationText></p>
     <p><InformationText>나이<InputInformation /></InformationText></p>
   </div>
   )

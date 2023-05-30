@@ -14,6 +14,7 @@ const TopBar = styled.div `
 //이부분은.. styled component 상태관리 참고해서 TopBar에 합쳐보자 나중에
 const InvisibleTopBar = styled(TopBar) `
   background-color:white;
+  border: 0;
 `
 
 //상단바에 글자를 띄우게 한다.
