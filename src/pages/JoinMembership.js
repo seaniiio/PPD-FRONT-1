@@ -1,3 +1,4 @@
+import '../App.css';
 import Top from '../components/Top'
 import Button from '../components/Button'
 import Center from '../components/Center'
@@ -20,9 +21,12 @@ export const InputInformation = styled.input `
   width:150px;
   height:30px;
   font-size:20px;
-  border: 0;
-  background-color:lightgray;
-  border-radius: 10px;
+  border: 1px solid black;
+  background-color:#f2f2f2;
+  border-radius: 20px;
+  ${props => props.type === 'password' && `
+     font: normal 62.5% "Lucida Sans Unicode",sans-serif;
+    `}
 `
 // 이메일 입력칸
 const InputInformationSmall = styled(InputInformation) `
@@ -33,8 +37,9 @@ const InputEmail = styled(InputInformation) `
   font-size:18px;
   left: 64%;
   width:100px;
-  border: 0;
   text-align: center;
+  border: 1px solid black;
+
 `
 
 //개인정보 활용 동의 스크롤 창
@@ -48,20 +53,16 @@ const TextContainer = styled.div `
   border: 1px solid black;
 `
 
-//체크박스
-const CheckBoxWrapper = styled.div `
-  text-align : center;
-  position :relative;
-  left:125px;
-  top:20px;
-`
-
 //코드 긁어왔습니다..
 const CheckBoxInput = styled.input `
   appearance: none; 
   width: 20px;
   height:20px;
   border: 1px solid black;
+  position: absolute;
+  right: 70px;
+  bottom: 0px;
+  
 
   &:checked {
     border-color: transparent;
@@ -78,6 +79,14 @@ export const InformationContainer = styled.div `
   width:400px;
   margin:auto;
   padding-left:10px;
+`
+
+const CheckboxContainer = styled.div `
+  position: relative;
+  width:400px;
+  margin:auto;
+  padding-left:10px;
+  padding-top: 30px;
 `
 
 function Information(){
@@ -107,7 +116,7 @@ function Information(){
     
 
     </InformationText></p>
-    <p><InformationText>비밀번호<InputInformation /></InformationText></p>
+    <p><InformationText>비밀번호<InputInformation type='password'/></InformationText></p>
     <p><InformationText>나이<InputInformation /></InformationText></p>
   </div>
   )
@@ -130,8 +139,7 @@ function JoinMembership() {
         <Top state='visible' text='회원가입'></Top>
         <InformationContainer><Information></Information></InformationContainer>
         <TextContainer> 개인정보 활용 동의 text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text t</TextContainer>
-        <CheckBoxWrapper>동의<CheckBoxInput type="checkbox"></CheckBoxInput>
-        </CheckBoxWrapper>
+        <CheckboxContainer><div className="agreeText">동의</div><CheckBoxInput type="checkbox"></CheckBoxInput></CheckboxContainer>
         <p><div className="buttonDiv"><p className="buttonDivText" onClick={openModal}>가입하기</p></div></p>
         
         {modalOpen ? <JoinModal header="가입이 완료되었습니다" open={modalOpen} cloas={closeModal}></JoinModal> : null}

@@ -4,22 +4,23 @@ button모양의 div를 정의
 */
 
 .buttonDiv {
-    background-color:lightgray;
-    width:150px;
-    height:70px;
-    font-size:20px;
-    border:none;
-    border-radius:10px;
-    margin: auto;
-  }
+  background-color:lightgray;
+  width:150px;
+  height:70px;
+  font-size:20px;
+  border-radius: 20px;
+  margin: auto;
+  position: relative;
+  top: 30px;
+}
 
   .buttonDivText {
     text-align: center;
     padding-top: 20px;
+    font-weight: bolder;
   }
 
   .editButton {
-    display: inline-box;
     text-align: center;
     padding-top: 10px;
     background-color:white;
@@ -29,8 +30,11 @@ button모양의 div를 정의
     position: absolute;
     top: 10px;
     right: 6%;
-    border:none;
-    border-radius:10px;
+    border-radius: 20px;
+  }
+
+  .editButton:hover {
+    background-color:#8d8e8f;
   }
 
   .smallEditButtonShow {
@@ -42,7 +46,7 @@ button모양의 div를 정의
     height:30px;
     font-size:16px;
     border:none;
-    border-radius:10px;
+    border-radius:20px;
     position: absolute;
     right: 0%;
   }
@@ -54,12 +58,23 @@ button모양의 div를 정의
   .selectEmail {
     position: absolute;
     right: 18%;
-    height:30px;
+    height:34px;
     font-weight:bold;
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: #f2f2f2;
   }
 
   .showAt {
     position: absolute;
     left: 56%;
     top: 25%;
+    
+  }
+
+  /*체크박스 옆 글자*/
+  .agreeText {
+    position: absolute;
+    right: 100px;
+    bottom: 4px;
   }

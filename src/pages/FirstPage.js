@@ -20,15 +20,20 @@ const LoginPageText = styled.div `
 // 반응형으로 바꿔야함
 //아이디, 비밀번호 입력하는 부분
 const LoginBox = styled.input `
-  position:absolute;
-  left:40%;
-  width:200px;
-  height:40px;
-  font-size:20px;
-  border: 0;
-  background-color:lightgray;
-  padding-left: 10px;
-`
+  
+    position:absolute;
+    left:40%;
+    width:200px;
+    height:40px;
+    font-size:20px;
+    border: 0;
+    background-color:lightgray;
+    padding-left: 10px;
+    border-radius: 20px;
+    ${props => props.type === 'password' && `
+     font: normal 62.5% "Lucida Sans Unicode",sans-serif;
+    `}
+`;
 
 //회원가입 글자
 const Join = styled.div `
@@ -39,7 +44,7 @@ const Join = styled.div `
 function Login(props) {
   return <div>
     <p><LoginPageText>이메일 <LoginBox /></LoginPageText></p>
-    <p><LoginPageText>비밀번호 <LoginBox /></LoginPageText></p>
+    <p><LoginPageText >비밀번호 <LoginBox type='password' /></LoginPageText></p>
   </div>
 }
 
