@@ -9,6 +9,7 @@ const TopBar = styled.div `
   background-color:lightgray;
   height:70px;
   text-align:center;
+  border: 1px solid #a1a1a1;
 `
 //이부분은.. styled component 상태관리 참고해서 TopBar에 합쳐보자 나중에
 const InvisibleTopBar = styled(TopBar) `

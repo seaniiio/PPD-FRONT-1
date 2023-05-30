@@ -15,7 +15,7 @@ const StyledButton = styled.button `
   position: relative;
   top: 20px;
   border:none;
-  border-radius:10px;
+  border-radius:20px;
 `;
 
 // MainPage의 측정시작 버튼(크기가 큰 버튼)

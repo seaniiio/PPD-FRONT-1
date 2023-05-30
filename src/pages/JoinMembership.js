@@ -20,9 +20,9 @@ export const InputInformation = styled.input `
   width:150px;
   height:30px;
   font-size:20px;
-  border: 0;
-  background-color:lightgray;
-  border-radius: 10px;
+  border: 1px solid black;
+  background-color:#f2f2f2;
+  border-radius: 20px;
 `
 // 이메일 입력칸
 const InputInformationSmall = styled(InputInformation) `
@@ -33,8 +33,9 @@ const InputEmail = styled(InputInformation) `
   font-size:18px;
   left: 64%;
   width:100px;
-  border: 0;
   text-align: center;
+  border: 1px solid black;
+
 `
 
 //개인정보 활용 동의 스크롤 창
