@@ -19,7 +19,7 @@ function MainPage() {
       <div>
         <Top state='visible'></Top>
         <Center img='person'></Center>
-        <Link to="/Measure"><Button name="측정 시작" show="big"></Button></Link>
+        <Link to="/Guidline"><Button name="측정 시작" show="big"></Button></Link>
         <ToCenter>
         <Link to="/MyInfo"><Button name="내 정보" show="many"></Button></Link>
         <Link to="/MyRecords"><Button name="보행 기록" show="many"></Button></Link>

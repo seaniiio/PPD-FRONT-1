@@ -50,10 +50,24 @@ const SingleButtonWrapperInline = styled.div `
   display:inline-block;
   position:absolute;
   right:10px;
-
 `;
 
-
+//내용이 별로 없을때 아래에 위치하는 버튼
+const BottomButton = styled.button `
+  background-color:lightgray;
+  width:150px;
+  height:70px;
+  font-size:20px;
+  position: absolute;
+  left:50%;
+  transform:translateX(-50%);
+  top: 330px;
+  border:none;
+  border-radius:20px;
+  ${props => props.how === 'many' && `
+    font-weight: bolder;
+  `}
+`;
 
 //한 행에 두 개의 버튼을 나타낼 때
 //inline속성이어야 두 개를 나타낼 수 있음
@@ -82,7 +96,14 @@ const Button = (props) => {
         </> 
       )
     }
+    if(props.show === 'bottom') {
+      return (<div>
+        <SingleButtonWrapper >
+         <BottomButton >{props.name}</BottomButton>
+        </SingleButtonWrapper>
 
+      </div>)
+    }
     else if(props.show === 'many') {
       return (
         <>
