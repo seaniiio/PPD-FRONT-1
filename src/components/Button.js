@@ -69,6 +69,11 @@ const BottomButton = styled.button `
   `}
 `;
 
+// BottomButton보다 아래에 위치하는 버튼
+const BottomButton2 = styled(BottomButton) `
+  top: 450px;
+`
+
 //한 행에 두 개의 버튼을 나타낼 때
 //inline속성이어야 두 개를 나타낼 수 있음
 const ManyButtonWrapper = styled.div `
@@ -100,6 +105,14 @@ const Button = (props) => {
       return (<div>
         <SingleButtonWrapper >
          <BottomButton >{props.name}</BottomButton>
+        </SingleButtonWrapper>
+
+      </div>)
+    }
+    if(props.show === 'bottom2') {
+      return (<div>
+        <SingleButtonWrapper >
+         <BottomButton2 >{props.name}</BottomButton2>
         </SingleButtonWrapper>
 
       </div>)

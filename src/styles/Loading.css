@@ -1,0 +1,53 @@
+.textShow {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.svg-loader{
+    display:flex;
+    position: relative;
+    top: 200px;
+    align-content: space-around;
+    justify-content: center;
+}
+.loader-svg{
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    fill: none;
+    stroke-width: 6px;
+    stroke-linecap: round;
+    stroke:#1e3ad6;
+}
+.loader-svg.bg{
+    stroke-width: 10px;
+    stroke: #b2bcf7;
+}
+.loader-svg.bg.red{
+    stroke-width: 10px;
+    stroke: #f2555a;
+}
+.animate{
+    stroke-dasharray: 242.6;
+    animation: fill-animation 1s cubic-bezier(1,1,1,1) 0s infinite;
+}
+
+@keyframes fill-animation{
+0%{
+    stroke-dasharray: 40 242.6;
+    stroke-dashoffset: 0;
+}
+50%{
+    stroke-dasharray: 141.3;
+    stroke-dashoffset: 141.3;
+}
+100%{
+    stroke-dasharray: 40 242.6;
+    stroke-dashoffset: 282.6;
+}
+}
+
