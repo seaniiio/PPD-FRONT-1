@@ -1,0 +1,13 @@
+.video-container {
+    display: flex;
+    justify-content: flex-end;
+    height: 100vh;
+
+  }
+  
+.user-video {
+width: calc(100vh + 1.25); /* 높이의 80% */
+height: 100%; /* 부모 요소의 높이에 맞추기 */
+object-fit: cover;
+}
+  
