@@ -99,7 +99,7 @@ function Record() {
         <div className="video-container">
         <video className="user-video" ref={videoTagRef} autoPlay muted></video>
         <button onClick={VideoCaptureStart}>촬영</button>
-        <button onClick={VideoCaptureEnd}>종료</button>
+        <Link to ="/Main"><button onClick={VideoCaptureEnd}>종료</button></Link>
         </div>
     );
 }
