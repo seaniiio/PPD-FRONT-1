@@ -2,6 +2,8 @@
 import '../App.css';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import homeImg from '../images/house.png';
+import backImg from '../images/back.png'
 
 
 //상단바의 회색 영역을 지정해준다
@@ -26,7 +28,7 @@ const TopBarText = styled.span `
 `
 
 const EditButton = styled.button `
-  displya: inline-box;
+  display: inline-box;
   background-color:white;
   width:100px;
   height:40px;
@@ -38,11 +40,30 @@ const EditButton = styled.button `
   border-radius:10px;
 `
 
+const Home = styled.img `
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+`
+const Back = styled.img `
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+`
+
 const Top = (props) => {
   // prop으로 visible을 입력받으면 회색으로 표시된다.
     if(props.state === 'visible') { 
       return (
+        <>
         <TopBar><TopBarText>{props.text}</TopBarText></TopBar>
+        {props.home ? <Link to="/Main"><Home src={homeImg}></Home></Link> : null}
+        {props.back ? <Link to="/Result"><Back src={backImg}></Back></Link> : null}
+        </>
       )
     }
   // 내 정보 페이지에서, 정보수정 버튼이 보이게 하기
