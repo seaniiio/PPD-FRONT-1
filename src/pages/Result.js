@@ -50,9 +50,9 @@ function Result() {
             <p><InformationText style={{marginLeft: "8px"}}>진단 결과<ShowInformation style={{marginLeft: "8px", width: "200px"}}>정상</ShowInformation></InformationText></p>
             <p><InformationText style={{marginLeft: "8px"}}>진단 상세<ShowInformation style={{marginLeft: "8px", width: "200px"}}>모든 특성이 정상입니다.</ShowInformation></InformationText></p>
 
-            <StyledLink to="/ResultDetail"><FeatureResult>보행속도</FeatureResult></StyledLink>
+            <StyledLink to="/"><FeatureResult>보행속도</FeatureResult></StyledLink>
             <StyledLink to="/"><FeatureResult>양 무릎 거리</FeatureResult></StyledLink>
-            <FeatureResult result='abnormal'> 양 발목 거리</FeatureResult>
+            <StyledLink to="/ResultDetail"><FeatureResult result='abnormal'> 양 발목 거리</FeatureResult></StyledLink>
             <StyledLink to="/"><FeatureResult>고개 숙임 정도</FeatureResult></StyledLink>
             <StyledLink to="/ResultDetail"><FeatureResult>보행속도</FeatureResult></StyledLink>
         </div>
