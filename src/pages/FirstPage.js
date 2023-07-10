@@ -16,7 +16,7 @@ import { useMediaQuery } from 'react-responsive';
 const LoginPageText = styled.div `
   font-size:30px;
   font-weight:bolder;
-`;
+`
 
 // 반응형으로 바꿔야함
 //아이디, 비밀번호 입력하는 부분
