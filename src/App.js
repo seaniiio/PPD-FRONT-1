@@ -10,6 +10,8 @@ import Guidline from './pages/Guidline';
 import Loading from './pages/Loading';
 import Normal from './pages/Normal';
 import Abnormal from './pages/Abnormal';
+import Result from './pages/Result';
+import ResultDetail from './pages/ResultDetail';
 import {Routes, Route} from 'react-router-dom'
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
       <Route path="/Loading" element={<Loading />} />
       <Route path="/Normal" element={<Normal />} />
       <Route path="/Abnormal" element={<Abnormal />} />
+      <Route path="/Result" element={<Result />} />
+      <Route path="/ResultDetail" element={<ResultDetail />} />
     </Routes>
   );
 }

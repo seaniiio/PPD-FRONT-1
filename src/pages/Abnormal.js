@@ -15,7 +15,7 @@ function Abnormal() {
                 <circle className="loader-svg bg red" cx="50" cy="50" r="45"></circle>
             </svg>
             </div>
-            <Link to="/Record"><Button name="결과 확인" show="bottom2" style={{ paddingTop: "200px" }}></Button></Link>
+            <Link to="/Result"><Button name="결과 확인" show="bottom2" style={{ paddingTop: "200px" }}></Button></Link>
         </div>
     )
 }

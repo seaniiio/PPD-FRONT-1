@@ -48,6 +48,9 @@ function Record() {
         };
     }, []);
 
+
+    // 녹화 시작
+
     const VideoCaptureStart = () => {
         if(navigator.mediaDevices.getUserMedia) {
           console.log("video capture start");
