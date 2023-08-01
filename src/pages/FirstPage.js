@@ -11,6 +11,7 @@ import {useState} from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 
+
 // 반응형으로 바꿔야함
 //로그인 페이지에서 "아이디", "비밀번호" 텍스트
 const LoginPageText = styled.div `
@@ -80,6 +81,21 @@ function FirstPage() {
   const GoMainPage = () => {
     navigate('/Main');
   }
+
+  // 백엔드 통신
+  const GoToMain = e => {
+    e.preventDefault();
+    // url
+    fetch('http://localhost:3000/mock.json', {
+      method: 'POST',
+      body: JSON.stringify({
+        realId: id.current.value,
+        readPwd: pwd.current.value,
+      }),
+    })
+      .then(response => response.json())
+      .then(res => console.log(res));
+  };
   
   return (
     <div>
@@ -92,7 +108,7 @@ function FirstPage() {
         <p><LoginPageText onChange = {handleChangePwd} >비밀번호 <LoginBox type='password' /></LoginPageText></p>
       </div>
       </LoginContainer>
-
+      {
       <div className="buttonDiv"><p className="buttonDivText" onClick={() => {
             console.log('로그인 버튼');
             if(id === realId) {
@@ -108,6 +124,26 @@ function FirstPage() {
           }
       
     }>로그인</p></div>
+    }
+    {/* mock 활용 */}
+    {/*}
+    <div className="buttonDiv"><p className="buttonDivText" onClick={(e) => {
+            console.log('로그인 버튼');
+            e.preventDefault();
+            // url
+            fetch('http://localhost:3000/mock.json', {
+              method: 'POST',
+              body: JSON.stringify({
+                id: id.current.value,
+                pwd: pwd.current.value,
+              }),
+            })
+              .then(response => response.json())
+              .then(res => console.log(res));
+          }
+      
+    }>로그인</p></div>
+  {*/}
 
       <Join><Link to="/Join">회원가입</Link></Join>
     </div>
