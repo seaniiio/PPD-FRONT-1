@@ -68,28 +68,30 @@ function FirstPage() {
     setPwd(value);
   };
 
-
+  const navigate = useNavigate();
   // 로그인 버튼 클릭 시 실행되는 함수
   function loginFetch() {
     // 백엔드와의 통신을 위한 fetch함수 사용
     let item = {email, password};
+    let today = new Date();
     fetch('http://localhost:5000/user', {
       method:"POST",
       headers: {
-        "Content-Type" : "application/json",
-        "Accept" : "application/json"
+        "Content-Type" : "application/json; charset=utf-8",
+        "Accept" : "application/json; charset=utf-8"
       },
-      body: JSON.stringify(item),
+      body: JSON.stringify({
+        email: item.email,
+        password: item.password,
+        last_login_date: today
+      }),
     })
     .then(response => response.json())
-    .then(response => {
-        if (response.token) {
-          localStorage.setItem('token', response.token);
-          this.props.history.push('/MainPage.js');
-        } else {
-          alert('아이디 혹은 비밀번호가 일치하지 않습니다');
-        }
-    });
+    .then(result => localStorage.setItem('access token', result.token))
+    .then(result => {
+      //console.log(result.token);
+      navigate('/Main');
+    })
   }
 
 
