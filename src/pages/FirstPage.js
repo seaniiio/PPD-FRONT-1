@@ -11,6 +11,7 @@ import {useState} from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 
+
 // 반응형으로 바꿔야함
 //로그인 페이지에서 "아이디", "비밀번호" 텍스트
 const LoginPageText = styled.div `
@@ -52,66 +53,65 @@ const LoginContainer = styled.div `
 `;
 
 function FirstPage() {
-    // id, pwd 저장(초기값 공백)
-  let [id, setId] = useState('');
-  let [pwd, setPwd] = useState('');
-
-    /* 
-        현재 통신이 연결되지 않았기 때문에
-        미리 지정한 아이디, 비밀번호와 일치할 때에만 로그인 가능하게 구현
-    */
-  const realId = "inha@naver.com";
-  const realPwd = "1234";
+  // id, pwd 저장(초기값 공백)
+  let [email, setEmail] = useState("");
+  let [password, setPwd] = useState("");
 
   // 아이디 입력에 대한 handle 함수
-  const handleChangeId = (event) => {
+  const handleChangeEmail = (event) => {
     const value = event.target.value;
-    setId(value);
+    setEmail(value);
   };
-
   // 비밀번호 입력에 대한 handle 함수
   const handleChangePwd = (event) => {
     const value = event.target.value;
     setPwd(value);
   };
 
-  // 로그인 성공시 메인페이지로 이동할때 사용하는 함수
   const navigate = useNavigate();
-  const GoMainPage = () => {
-    navigate('/Main');
+  // 로그인 버튼 클릭 시 실행되는 함수
+  function loginFetch() {
+    // 백엔드와의 통신을 위한 fetch함수 사용
+    let item = {email, password};
+    let today = new Date();
+    fetch('http://localhost:5000/user', {
+      method:"POST",
+      headers: {
+        "Content-Type" : "application/json; charset=utf-8",
+        "Accept" : "application/json; charset=utf-8"
+      },
+      body: JSON.stringify({
+        email: item.email,
+        password: item.password,
+        last_login_date: today
+      }),
+    })
+    .then(response => response.json())
+    .then(result => localStorage.setItem('access token', result.token))
+    .then(result => {
+      //console.log(result.token);
+      navigate('/Main');
+    })
   }
-  
+
+
   return (
     <div>
       <Top state='invisible'></Top>
       <Center img='person'></Center>
-      
       <LoginContainer>
       <div>
-        <p><LoginPageText onChange = {handleChangeId} >이메일 <LoginBox /></LoginPageText></p>
+        <p><LoginPageText onChange = {handleChangeEmail} >이메일 <LoginBox /></LoginPageText></p>
         <p><LoginPageText onChange = {handleChangePwd} >비밀번호 <LoginBox type='password' /></LoginPageText></p>
       </div>
       </LoginContainer>
 
-      <div className="buttonDiv"><p className="buttonDivText" onClick={() => {
-            console.log('로그인 버튼');
-            if(id === realId) {
-              if(pwd === realPwd) {
-                console.log('로그인 성공');
-                GoMainPage(); 
-              }
-              else {
-                console.log('로그인 실패');
-                alert('아이디 혹은 비밀번호가 일치하지 않습니다.')
-              }
-            }
-          }
-      
-    }>로그인</p></div>
-
+    <div className="buttonDiv"><p className="buttonDivText" onClick={loginFetch}>로그인</p></div>
       <Join><Link to="/Join">회원가입</Link></Join>
     </div>
   );
 }
+
+
 
 export default FirstPage;

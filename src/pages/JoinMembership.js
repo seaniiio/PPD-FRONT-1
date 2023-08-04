@@ -89,23 +89,64 @@ const CheckboxContainer = styled.div `
   padding-top: 30px;
 `
 
-function Information(){
+function JoinMembership(){
+
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+    name: '',
+    age: 0,
+    info: 'agree'
+  });
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name] : e.target.value
+    })
+  }
+
   const emailList = ["@naver.com", '@daum.net', '@gmail.com', '@nate.com', '직접입력'];
   const [Selected, setSelected] = useState("");
 
   const handleSelect = (e) => {
     setSelected(e.target.value);
+  };
+
+  // 가입완료 모달창에 대한 상태변수
+  const [modalOpen, setModalOpen] = useState(false);
+  function openModal() {
+    setModalOpen(true);
   }
+  function closeModal() {
+    setModalOpen(false);
+  }
+
+  // 가입하기 버튼 누르면 실행
+  function joinFetch() {
+   fetch('http://localhost:5000/user', {
+      method:"POST",
+      headers : {
+        "Content-Type":"application/json; charset=utf-8"
+       },
+      body: JSON.stringify(user),
+    })
+    .then((response) => response.json())
+   .then(openModal);
+    };
+
   return (
   <div>
-    <p>
-      <InformationText>이름<InputInformation /></InformationText>
-    </p>
-    <p><InformationText>이메일<InputInformationSmall />
+    <Top state='visible' text='회원가입'></Top>
+    <p><InformationText>이름<InputInformation name="name" onChange={handleChange}></InputInformation></InformationText></p>
+    <p><InformationText>이메일<InputInformation name="email" onChange={handleChange}></InputInformation>
+    {/*}
     {Selected === '직접입력' ? 
-    <><span className="showAt">@</span><InputEmail />{/* showAt은 DivButton.css에 정의 */}</>
+    <><span className="showAt">@</span><InputEmail />
+    {*/}
+    {/* showAt은 DivButton.css에 정의 */}
+    {/*}
     :
-    <select className="selectEmail" onChange={handleSelect} value={Selected}> {/* selectEmail은 DivButton.css에 정의 */}
+    <select className="selectEmail" onChange={handleSelect} value={Selected}>
       {emailList.map((item) => (
         <option value={item} key={item}>
           {item}
@@ -113,38 +154,19 @@ function Information(){
       ))}
     </select>
     }
-    
+    {*/}
+
 
     </InformationText></p>
-    <p><InformationText>비밀번호<InputInformation type='password'/></InformationText></p>
-    <p><InformationText>나이<InputInformation /></InformationText></p>
+    <p><InformationText>비밀번호<InputInformation type='password' name="password" onChange = {handleChange}></InputInformation></InformationText></p>
+    <p><InformationText>나이<InputInformation name="age" onChange={handleChange}></InputInformation></InformationText></p>
+    <TextContainer> 개인정보 활용 동의 내용~~~ </TextContainer>
+    <CheckboxContainer><div className="agreeText">동의</div><CheckBoxInput type="checkbox"></CheckBoxInput></CheckboxContainer>
+    <p><div className="buttonDiv"><p className="buttonDivText" onClick={joinFetch}>가입하기</p></div></p>
+    
+    {modalOpen ? <JoinModal header="가입이 완료되었습니다" open={modalOpen} cloas={closeModal}></JoinModal> : null}
   </div>
   )
-}
-
-//회원가입 페이지
-function JoinMembership() {
-
-    // 가입완료 모달창에 대한 상태변수
-    const [modalOpen, setModalOpen] = useState(false);
-    function openModal() {
-      setModalOpen(true);
-    }
-    function closeModal() {
-      setModalOpen(false);
-    }
-
-    return (
-      <>
-        <Top state='visible' text='회원가입'></Top>
-        <InformationContainer><Information></Information></InformationContainer>
-        <TextContainer> 개인정보 활용 동의 text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text t</TextContainer>
-        <CheckboxContainer><div className="agreeText">동의</div><CheckBoxInput type="checkbox"></CheckBoxInput></CheckboxContainer>
-        <p><div className="buttonDiv"><p className="buttonDivText" onClick={openModal}>가입하기</p></div></p>
-        
-        {modalOpen ? <JoinModal header="가입이 완료되었습니다" open={modalOpen} cloas={closeModal}></JoinModal> : null}
-        </>
-    )
 }
 
 export default JoinMembership
