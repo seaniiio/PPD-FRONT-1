@@ -30,7 +30,6 @@ function App() {
       <Route path="/Abnormal" element={<Abnormal />} />
       <Route path="/Result" element={<Result />} />
       <Route path="/ResultDetail" element={<ResultDetail />} />
-
     </Routes>
   );
 }
