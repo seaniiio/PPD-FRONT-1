@@ -92,6 +92,7 @@ const CheckboxContainer = styled.div `
 function JoinMembership(){
 
   const [user, setUser] = useState({
+    id: 0,
     email: '',
     password: '',
     name: '',
