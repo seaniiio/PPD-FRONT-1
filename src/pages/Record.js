@@ -7,6 +7,7 @@ import Center from '../components/Center'
 import {Link} from 'react-router-dom'
 import {useState, useEffect, useRef} from 'react';
 import styled from 'styled-components';
+import sound from '../sound/beep.mp3';
 
 
 function Record() {
@@ -24,7 +25,7 @@ function Record() {
             videoMediaStream = await navigator.mediaDevices.getUserMedia({
             audio: false,
             video: {
-                width: 360,
+                width: 420,
                 height: 240,
             },
             });
@@ -91,7 +92,7 @@ function Record() {
             console.log('video capture end');
             videoRecorder.stop();
             videoRecorder = null;
-        
+            videoFetch();
             // our final videoBlob
             // sendAvi(videoBlob);
             // -> 이벤트의 비동기로 인해 순서가 꼬이므로 이벤트 발생 시에 선언한다
@@ -99,7 +100,7 @@ function Record() {
     };
       // 가이드 보이스
     const handleTTS = () => {
-      const message = "촬영을 시작하겠습니다. 화면에 나타난 빨간 네모박스에 맞춰서, 걸음을 시작해 주십시오."; // 재생할 메시지
+      const message = "촬영을 시작하겠습니다. 화면에 나타난 빨간 네모박스에 맞춰서, 삐 소리가 나면 걸음을 시작해 주십시오."; // 재생할 메시지
     
       if ("speechSynthesis" in window) {
         const speech = new SpeechSynthesisUtterance(message);
@@ -112,10 +113,44 @@ function Record() {
       }
     };
 
+    // 삐 소리
+    const handleBeepSound = () => {
+      new Audio(sound).play();
+    };
+
+    // 촬영한 동영상을 FAST API로 넘기기
+    const videoFetch = async () => {
+      try {
+        const formData = new FormData();
+        formData.append('video', videoBlob, 'recorded-video.webm');
+    
+        await fetch('http://localhost:5000/video', {
+          method: 'POST',
+          body: formData,
+        });
+    
+        console.log('Video uploaded successfully');
+      } catch (error) {
+        console.error('Error uploading video:', error);
+      }
+    };
+
+    // 가이드 음성을 재생하고
+    // 5초 뒤에 촬영을 시작하게 하는 함수
+    const StartRecording = () => {
+      handleTTS(); // handleTTS() 함수 호출
+
+      setTimeout(() => {
+        // 삐 소리
+        handleBeepSound();
+        VideoCaptureStart(); // VideoCaptureStart() 함수 호출
+      }, 10000); // 10초 (10000 밀리초) 후에 실행 
+    }
+
     return (
         <div className="video-container">
         <video className="user-video" ref={videoTagRef} autoPlay muted></video>
-        <button onClick={() => { VideoCaptureStart(); handleTTS(); }}>촬영</button>        
+        <button onClick={StartRecording}>촬영</button>        
         <Link to ="/Loading"><button onClick={VideoCaptureEnd}>종료</button></Link>
         </div>
     );
