@@ -3,6 +3,7 @@ import Square from '../components/Square';
 import personIcon from '../images/icon_person.png';
 import Top from '../components/Top'
 
+
 const MyRecords = () => {
   return (
     <div>
