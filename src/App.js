@@ -15,6 +15,7 @@ import ResultDetail from './pages/ResultDetail';
 import {Routes, Route} from 'react-router-dom'
 
 function App() {
+
   return (
     <Routes>
       <Route path="/" element={<FirstPage />} />
