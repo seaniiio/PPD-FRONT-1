@@ -4,7 +4,7 @@ import '../styles/Video.css'
 import Top from '../components/Top'
 import Button from '../components/Button'
 import Center from '../components/Center'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {useState, useEffect, useRef} from 'react';
 import styled from 'styled-components';
 import sound from '../sound/beep.mp3';
@@ -73,26 +73,23 @@ function Record() {
           // 3) 녹화 중지 이벤트 핸들러 등록
           videoRecorder.onstop = () => {
             videoBlob = new Blob(videoData, {type: "video/webm"});
+            console.log("videoBlob:", videoBlob);
             recordedVideoURL = window.URL.createObjectURL(videoBlob);
-            
-            // 이벤트 실행 시에 서버로 파일 POST
-            /*
-            sendAvi(videoBlob);
-            console.log("video capture end");
-            */
+            videoFetch();
           }
           // 4) 녹화 시작
           videoRecorder.start();
         }
       };
 
+    const navigate = useNavigate();
     // 5) 녹화 중지
     const VideoCaptureEnd = () => {
         if(videoRecorder){
             console.log('video capture end');
             videoRecorder.stop();
             videoRecorder = null;
-            videoFetch();
+            navigate('/Loading');
             // our final videoBlob
             // sendAvi(videoBlob);
             // -> 이벤트의 비동기로 인해 순서가 꼬이므로 이벤트 발생 시에 선언한다
@@ -121,13 +118,20 @@ function Record() {
     // 촬영한 동영상을 FAST API로 넘기기
     const videoFetch = async () => {
       try {
-        const formData = new FormData();
-        formData.append('video', videoBlob);
-    
-        await fetch('http://localhost:8000/video', {
+        let formData = new FormData();
+        let fname = new Date().toString() + ".mp4";
+        const f = new File([videoBlob], fname);
+        console.log("f:", f);
+
+        formData.append("type", "video/webm");
+        formData.append("name", fname);
+        formData.append("file", f);
+        formData.append("url", recordedVideoURL);
+        console.log("url:", recordedVideoURL);
+      
+        await fetch('http://13.125.209.54:8000/video', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'multipart/form-data'
+          headers: {//'Content-Type': 'multipart/form-data'
           },
           body: formData,
         });
