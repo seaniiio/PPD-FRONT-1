@@ -122,10 +122,13 @@ function Record() {
     const videoFetch = async () => {
       try {
         const formData = new FormData();
-        formData.append('video', videoBlob, 'recorded-video.webm');
+        formData.append('video', videoBlob);
     
-        await fetch('http://localhost:5000/video', {
+        await fetch('http://localhost:8000/video', {
           method: 'POST',
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
           body: formData,
         });
     
@@ -139,23 +142,24 @@ function Record() {
     // 5초 뒤에 촬영을 시작하게 하는 함수
     const StartRecording = () => {
       handleTTS(); // handleTTS() 함수 호출
-
+      
       setTimeout(() => {
         // 삐 소리
         handleBeepSound();
         VideoCaptureStart(); // VideoCaptureStart() 함수 호출
-      }, 10000); // 10초 (10000 밀리초) 후에 실행 
+      }, 1000); // 10초 (10000 밀리초) 후에 실행 
 
       setTimeout(() => {
         // 삐 소리
         handleBeepSound();
         VideoCaptureEnd(); // VideoCaptureEnd() 함수 호출
-      }, 20000); // 20초 (20000 밀리초) 후에 촬영 종료
+      }, 2000); // 20초 (20000 밀리초) 후에 촬영 종료
     }
 
     return (
         <div className="video-container">
         <video className="user-video" ref={videoTagRef} autoPlay muted></video>
+        <div className="red-box"></div>
         <button onClick={StartRecording}>촬영</button>        
         <Link to ="/Loading"><button onClick={VideoCaptureEnd}>종료</button></Link>
         </div>
