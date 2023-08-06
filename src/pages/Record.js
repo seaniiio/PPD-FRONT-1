@@ -4,10 +4,12 @@ import '../styles/Video.css'
 import Top from '../components/Top'
 import Button from '../components/Button'
 import Center from '../components/Center'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {useState, useEffect, useRef} from 'react';
 import styled from 'styled-components';
 import sound from '../sound/beep.mp3';
+
+import test_video from '../test/IMG_5804.MOV';
 
 
 function Record() {
@@ -73,26 +75,23 @@ function Record() {
           // 3) 녹화 중지 이벤트 핸들러 등록
           videoRecorder.onstop = () => {
             videoBlob = new Blob(videoData, {type: "video/webm"});
+            console.log("videoBlob:", videoBlob);
             recordedVideoURL = window.URL.createObjectURL(videoBlob);
-            
-            // 이벤트 실행 시에 서버로 파일 POST
-            /*
-            sendAvi(videoBlob);
-            console.log("video capture end");
-            */
+            videoFetch();
           }
           // 4) 녹화 시작
           videoRecorder.start();
         }
       };
 
+    const navigate = useNavigate();
     // 5) 녹화 중지
     const VideoCaptureEnd = () => {
         if(videoRecorder){
             console.log('video capture end');
             videoRecorder.stop();
             videoRecorder = null;
-            videoFetch();
+            navigate('/Loading');
             // our final videoBlob
             // sendAvi(videoBlob);
             // -> 이벤트의 비동기로 인해 순서가 꼬이므로 이벤트 발생 시에 선언한다
@@ -118,21 +117,74 @@ function Record() {
       new Audio(sound).play();
     };
 
+    const navigate_normal = useNavigate();
+    const navigate_abnormal = useNavigate();
+
     // 촬영한 동영상을 FAST API로 넘기기
     const videoFetch = async () => {
       try {
-        const formData = new FormData();
-        formData.append('video', videoBlob);
-    
-        await fetch('http://localhost:8000/video', {
+        let formData = new FormData();
+
+        
+        let fname = new Date().toString() + ".mp4";
+        const f = new File([videoBlob], fname);
+        console.log("f:", f);
+
+        formData.append("type", "video/webm");
+        formData.append("name", fname);
+        formData.append("file", f);
+        formData.append("url", recordedVideoURL);
+        console.log("url:", recordedVideoURL);
+        
+
+        // 잘 되는 동영상으로 테스트 해보기
+        /*
+        const videoUrl = '../test/IMG_5804.MOV'; // 실제 동영상 파일 경로로 수정
+        const res = await fetch(videoUrl);
+        const videoBlob2 = await res.blob();
+
+        const fileName = 'my_video.MOV'; // 파일 이름 설정
+        const f2 = new File([videoBlob2], fileName);
+
+        formData.append("type", "video/webm");
+        formData.append("name", fileName);
+        formData.append("file", f2);
+        formData.append("url", videoUrl);
+        */
+        //
+      
+        const response = await fetch('http://127.0.0.1:8000/video', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'multipart/form-data'
+          headers: {//'Content-Type': 'multipart/form-data'
           },
           body: formData,
-        });
-    
+        })
         console.log('Video uploaded successfully');
+        
+        // post -> response 데이터 받아옴
+        
+        const responseData = await response.json();
+        console.log(responseData)
+
+        const result = responseData[0];
+        // 종합 결과가 정상일 시, 정상 판별하는 페이지로 이동
+        if(result === 0) {
+          navigate_normal('/Normal');
+        }
+        // 종합 결과가 비정상일 시, 비정상 판별하는 페이지로 이동
+        else if(result === 0) {
+          navigate_normal('/Abnormal');
+        }
+        const resultArray = responseData[responseData.length - 1];
+
+        console.log("joint-result_type:", resultArray[0]);
+        console.log("feature-normal_value:", resultArray[1]);
+        console.log("feature-abnormal_value:", resultArray[2]);
+        console.log("feature-actual_value:", resultArray[3]);
+        console.log("joint-result_type:", resultArray[4]);
+        console.log("feature-result_type:", resultArray[5]);  
+        
+
       } catch (error) {
         console.error('Error uploading video:', error);
       }
@@ -153,7 +205,7 @@ function Record() {
         // 삐 소리
         handleBeepSound();
         VideoCaptureEnd(); // VideoCaptureEnd() 함수 호출
-      }, 2000); // 20초 (20000 밀리초) 후에 촬영 종료
+      }, 10000); // 20초 (20000 밀리초) 후에 촬영 종료
     }
 
     return (
