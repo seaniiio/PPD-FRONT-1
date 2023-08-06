@@ -42,19 +42,23 @@ export const ShowInformation = styled.div `
 
 
 function Result() {
+    const result = Number(JSON.parse(localStorage.getItem('result')));
+    const savedResultArray = JSON.parse(localStorage.getItem('resultArray'));
     return (
         <div>
             <Top state='visible' text="분석결과" home="true"></Top>
+            <br/>
+            <><InformationText style={{marginLeft: "8px"}}>측정 날짜<ShowInformation style={{marginLeft: "8px", width: "200px"}}>2023/05/11 17:51</ShowInformation></InformationText></>
+            <br/>
+            <><InformationText style={{marginLeft: "8px"}}>진단 결과<ShowInformation style={{marginLeft: "8px", width: "200px"}}>{result === 0 ? "" : "비"}정상</ShowInformation></InformationText></>
+            
 
-            <p><InformationText style={{marginLeft: "8px"}}>측정 날짜<ShowInformation style={{marginLeft: "8px", width: "200px"}}>2023/05/11 17:51</ShowInformation></InformationText></p>
-            <p><InformationText style={{marginLeft: "8px"}}>진단 결과<ShowInformation style={{marginLeft: "8px", width: "200px"}}>정상</ShowInformation></InformationText></p>
-            <p><InformationText style={{marginLeft: "8px"}}>진단 상세<ShowInformation style={{marginLeft: "8px", width: "200px"}}>모든 특성이 정상입니다.</ShowInformation></InformationText></p>
-
-            <StyledLink to="/"><FeatureResult>보행속도</FeatureResult></StyledLink>
-            <StyledLink to="/"><FeatureResult>양 무릎 거리</FeatureResult></StyledLink>
-            <StyledLink to="/ResultDetail"><FeatureResult result='abnormal'> 양 발목 거리</FeatureResult></StyledLink>
-            <StyledLink to="/"><FeatureResult>고개 숙임 정도</FeatureResult></StyledLink>
-            <StyledLink to="/ResultDetail"><FeatureResult>보행속도</FeatureResult></StyledLink>
+            <StyledLink to="/"><FeatureResult result = {savedResultArray[0] === 1 ? 'abnormal' : undefined }>F1</FeatureResult></StyledLink>
+            <StyledLink to="/"><FeatureResult result = {savedResultArray[1] === 1 ? 'abnormal' : undefined }>F2</FeatureResult></StyledLink>
+            <StyledLink to="/ResultDetail"><FeatureResult result = {savedResultArray[2] === 1 ? 'abnormal' : undefined }>F3</FeatureResult></StyledLink>
+            <StyledLink to="/"><FeatureResult result = {savedResultArray[3] === 1 ? 'abnormal' : undefined }>F4</FeatureResult></StyledLink>
+            <StyledLink to="/ResultDetail"><FeatureResult result = {savedResultArray[4] === 1 ? 'abnormal' : undefined }>F5</FeatureResult></StyledLink>
+            <StyledLink to="/"><FeatureResult result = {savedResultArray[5] === 1 ? 'abnormal' : undefined }>F6</FeatureResult></StyledLink>
         </div>
     )
 }

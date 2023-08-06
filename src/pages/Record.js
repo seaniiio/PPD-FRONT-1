@@ -9,8 +9,6 @@ import {useState, useEffect, useRef} from 'react';
 import styled from 'styled-components';
 import sound from '../sound/beep.mp3';
 
-import test_video from '../test/IMG_5804.MOV';
-
 
 function Record() {
 
@@ -53,7 +51,6 @@ function Record() {
 
 
     // 녹화 시작
-
     const VideoCaptureStart = () => {
         if(navigator.mediaDevices.getUserMedia) {
           console.log("video capture start");
@@ -135,24 +132,8 @@ function Record() {
         formData.append("file", f);
         formData.append("url", recordedVideoURL);
         console.log("url:", recordedVideoURL);
-        
-
-        // 잘 되는 동영상으로 테스트 해보기
-        /*
-        const videoUrl = '../test/IMG_5804.MOV'; // 실제 동영상 파일 경로로 수정
-        const res = await fetch(videoUrl);
-        const videoBlob2 = await res.blob();
-
-        const fileName = 'my_video.MOV'; // 파일 이름 설정
-        const f2 = new File([videoBlob2], fileName);
-
-        formData.append("type", "video/webm");
-        formData.append("name", fileName);
-        formData.append("file", f2);
-        formData.append("url", videoUrl);
-        */
-        //
       
+        // fast api 서버
         const response = await fetch('http://127.0.0.1:8000/video', {
           method: 'POST',
           headers: {//'Content-Type': 'multipart/form-data'
@@ -162,10 +143,10 @@ function Record() {
         console.log('Video uploaded successfully');
         
         // post -> response 데이터 받아옴
-        
         const responseData = await response.json();
         console.log(responseData)
 
+        // 종합 결과 0->정상 1->비정상
         const result = responseData[0];
         // 종합 결과가 정상일 시, 정상 판별하는 페이지로 이동
         if(result === 0) {
@@ -173,16 +154,21 @@ function Record() {
         }
         // 종합 결과가 비정상일 시, 비정상 판별하는 페이지로 이동
         else if(result === 0) {
-          navigate_normal('/Abnormal');
+          navigate_abnormal('/Abnormal');
         }
-        const resultArray = responseData[responseData.length - 1];
 
-        console.log("joint-result_type:", resultArray[0]);
-        console.log("feature-normal_value:", resultArray[1]);
-        console.log("feature-abnormal_value:", resultArray[2]);
-        console.log("feature-actual_value:", resultArray[3]);
-        console.log("joint-result_type:", resultArray[4]);
-        console.log("feature-result_type:", resultArray[5]);  
+        // 분석 상세 결과 출력
+        const resultArray = responseData[responseData.length - 1];
+        // 다른 페이지에서 사용하기 위해 localStorage에 저장
+        localStorage.setItem('result', JSON.stringify(result));
+        localStorage.setItem('resultArray', JSON.stringify(resultArray));
+
+        console.log("f1:", resultArray[0]);
+        console.log("f2:", resultArray[1]);
+        console.log("f3:", resultArray[2]);
+        console.log("f4:", resultArray[3]);
+        console.log("f5:", resultArray[4]);
+        console.log("f6:", resultArray[5]);  
         
 
       } catch (error) {
@@ -199,13 +185,13 @@ function Record() {
         // 삐 소리
         handleBeepSound();
         VideoCaptureStart(); // VideoCaptureStart() 함수 호출
-      }, 1000); // 10초 (10000 밀리초) 후에 실행 
+      }, 10000); // 10초 (10000 밀리초) 후에 실행 
 
       setTimeout(() => {
         // 삐 소리
         handleBeepSound();
         VideoCaptureEnd(); // VideoCaptureEnd() 함수 호출
-      }, 10000); // 20초 (20000 밀리초) 후에 촬영 종료
+      }, 20000); // 20초 (20000 밀리초) 후에 촬영 종료
     }
 
     return (
