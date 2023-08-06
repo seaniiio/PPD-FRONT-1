@@ -10,4 +10,15 @@ width: calc(100vh + 1.25); /* 높이의 80% */
 height: 100%; /* 부모 요소의 높이에 맞추기 */
 object-fit: cover;
 }
-  
+
+.red-box {
+  position: absolute;
+  width: 70%;
+  height: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid red;
+  box-sizing: border-box; /* 테두리를 포함하여 요소 크기 설정 */
+  pointer-events: none; /* 네모박스 위의 이벤트를 허용하지 않음 */
+}
