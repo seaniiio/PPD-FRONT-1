@@ -25,7 +25,7 @@ function Record() {
             videoMediaStream = await navigator.mediaDevices.getUserMedia({
             audio: false,
             video: {
-                width: 420,
+                width: 480,
                 height: 240,
             },
             });
@@ -116,6 +116,7 @@ function Record() {
 
     const navigate_normal = useNavigate();
     const navigate_abnormal = useNavigate();
+    const navigate_record = useNavigate();
 
     // 촬영한 동영상을 FAST API로 넘기기
     const videoFetch = async () => {
@@ -173,6 +174,8 @@ function Record() {
 
       } catch (error) {
         console.error('Error uploading video:', error);
+        alert('걸음이 인식되지 않았습니다. 다시 시도해주세요')
+        navigate_record('./')
       }
     };
 
@@ -185,13 +188,13 @@ function Record() {
         // 삐 소리
         handleBeepSound();
         VideoCaptureStart(); // VideoCaptureStart() 함수 호출
-      }, 10000); // 10초 (10000 밀리초) 후에 실행 
+      }, 1000); // 10초 (10000 밀리초) 후에 실행 
 
       setTimeout(() => {
         // 삐 소리
         handleBeepSound();
         VideoCaptureEnd(); // VideoCaptureEnd() 함수 호출
-      }, 20000); // 20초 (20000 밀리초) 후에 촬영 종료
+      }, 5000); // 20초 (20000 밀리초) 후에 촬영 종료
     }
 
     return (
