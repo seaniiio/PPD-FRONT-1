@@ -3,6 +3,9 @@ import Top from '../components/Top'
 import '../styles/Loading.css'
 
 
+// 결과 받아서 정상이면 -> Normal.js
+// 비정상이면 -> Abnormal.js로 이동
+
 function Loading() {
     return (
         <div>
