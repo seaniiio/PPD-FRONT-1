@@ -154,7 +154,7 @@ function Record() {
           navigate_normal('/Normal');
         }
         // 종합 결과가 비정상일 시, 비정상 판별하는 페이지로 이동
-        else if(result === 0) {
+        else if(result === 1) {
           navigate_abnormal('/Abnormal');
         }
 
@@ -188,13 +188,13 @@ function Record() {
         // 삐 소리
         handleBeepSound();
         VideoCaptureStart(); // VideoCaptureStart() 함수 호출
-      }, 10000); // 10초 (10000 밀리초) 후에 실행 
+      }, 1000); // 10초 (10000 밀리초) 후에 실행 
 
       setTimeout(() => {
         // 삐 소리
         handleBeepSound();
         VideoCaptureEnd(); // VideoCaptureEnd() 함수 호출
-      }, 20000); // 20초 (20000 밀리초) 후에 촬영 종료
+      }, 4000); // 20초 (20000 밀리초) 후에 촬영 종료
     }
 
     return (
