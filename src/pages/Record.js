@@ -154,7 +154,7 @@ function Record() {
           navigate_normal('/Normal');
         }
         // 종합 결과가 비정상일 시, 비정상 판별하는 페이지로 이동
-        else if(result === 0) {
+        else if(result === 1) {
           navigate_abnormal('/Abnormal');
         }
 
@@ -164,12 +164,12 @@ function Record() {
         localStorage.setItem('result', JSON.stringify(result));
         localStorage.setItem('resultArray', JSON.stringify(resultArray));
 
-        console.log("f1:", resultArray[0]);
-        console.log("f2:", resultArray[1]);
-        console.log("f3:", resultArray[2]);
-        console.log("f4:", resultArray[3]);
-        console.log("f5:", resultArray[4]);
-        console.log("f6:", resultArray[5]);  
+        console.log("속도:", resultArray[0]);
+        console.log("발목 사이 거리:", resultArray[1]);
+        console.log("무릎 사이 거리:", resultArray[2]);
+        console.log("무릎 각도:", resultArray[3]);
+        console.log("팔꿈치 각도:", resultArray[4]);
+        console.log("허리 각도:", resultArray[5]);  
         
 
       } catch (error) {
@@ -194,7 +194,7 @@ function Record() {
         // 삐 소리
         handleBeepSound();
         VideoCaptureEnd(); // VideoCaptureEnd() 함수 호출
-      }, 5000); // 20초 (20000 밀리초) 후에 촬영 종료
+      }, 4000); // 20초 (20000 밀리초) 후에 촬영 종료
     }
 
     return (

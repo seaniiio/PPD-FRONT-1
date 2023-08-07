@@ -53,12 +53,12 @@ function Result() {
             <><InformationText style={{marginLeft: "8px"}}>진단 결과<ShowInformation style={{marginLeft: "8px", width: "200px"}}>{result === 0 ? "" : "비"}정상</ShowInformation></InformationText></>
             
 
-            <StyledLink to="/"><FeatureResult result = {savedResultArray[0] === 1 ? 'abnormal' : undefined }>F1</FeatureResult></StyledLink>
-            <StyledLink to="/"><FeatureResult result = {savedResultArray[1] === 1 ? 'abnormal' : undefined }>F2</FeatureResult></StyledLink>
-            <StyledLink to="/ResultDetail"><FeatureResult result = {savedResultArray[2] === 1 ? 'abnormal' : undefined }>F3</FeatureResult></StyledLink>
-            <StyledLink to="/"><FeatureResult result = {savedResultArray[3] === 1 ? 'abnormal' : undefined }>F4</FeatureResult></StyledLink>
-            <StyledLink to="/ResultDetail"><FeatureResult result = {savedResultArray[4] === 1 ? 'abnormal' : undefined }>F5</FeatureResult></StyledLink>
-            <StyledLink to="/"><FeatureResult result = {savedResultArray[5] === 1 ? 'abnormal' : undefined }>F6</FeatureResult></StyledLink>
+            <StyledLink to="/"><FeatureResult result = {savedResultArray[0] === 1 ? 'abnormal' : undefined }>속도</FeatureResult></StyledLink>
+            <StyledLink to="/"><FeatureResult result = {savedResultArray[1] === 1 ? 'abnormal' : undefined }>발목 사이 거리</FeatureResult></StyledLink>
+            <StyledLink to="/ResultDetail"><FeatureResult result = {savedResultArray[2] === 1 ? 'abnormal' : undefined }>무릎 사이 거리</FeatureResult></StyledLink>
+            <StyledLink to="/"><FeatureResult result = {savedResultArray[3] === 1 ? 'abnormal' : undefined }>무릎 각도</FeatureResult></StyledLink>
+            <StyledLink to="/ResultDetail"><FeatureResult result = {savedResultArray[4] === 1 ? 'abnormal' : undefined }>팔꿈치 각도</FeatureResult></StyledLink>
+            <StyledLink to="/"><FeatureResult result = {savedResultArray[5] === 1 ? 'abnormal' : undefined }>허리 각도</FeatureResult></StyledLink>
         </div>
     )
 }
