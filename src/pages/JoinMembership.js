@@ -92,12 +92,18 @@ const CheckboxContainer = styled.div `
 function JoinMembership(){
 
   const [user, setUser] = useState({
-    id: 0,
-    email: '',
-    password: '',
-    name: '',
+    user_idx: 0,
+    created_date: Date(),
+    last_modified_date: Date(),
     age: 0,
-    info: 'agree'
+    email: '',
+    genter: 'none',
+    info: 'agree',
+    last_login_date: Date(),
+    name: '',
+    password: '',
+    role_type: 'normal',
+    status: 'leave'
   });
   const handleChange = (e) => {
     setUser({
@@ -124,16 +130,26 @@ function JoinMembership(){
 
   // 가입하기 버튼 누르면 실행
   function joinFetch() {
-   fetch('http://localhost:5000/user', {
+   fetch('http://localhost:5000/api/auth/signup', {
       method:"POST",
       headers : {
         "Content-Type":"application/json; charset=utf-8"
        },
       body: JSON.stringify(user),
     })
+
     .then((response) => response.json())
-   .then(openModal);
-    };
+    .then((response) => {
+      // backend에서 설정한 message
+      if (response.MESSAGE === 'SUCCESS') {
+        alert('회원가입 성공!');
+        openModal();
+      }
+      if (response.MESSAGE === 'EMAIL ALREADY EXISTS') {
+        alert('이미 존재하는 이메일입니다');
+      }
+    })
+  };
 
   return (
   <div>
