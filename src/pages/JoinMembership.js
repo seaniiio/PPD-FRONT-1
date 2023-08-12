@@ -140,7 +140,9 @@ function JoinMembership(){
 
     .then((response) => response.json())
     .then((response) => {
+      console.log(response);
       // backend에서 설정한 message
+      // 알아와서 수ㅇ
       if (response.MESSAGE === 'SUCCESS') {
         alert('회원가입 성공!');
         openModal();
