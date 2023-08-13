@@ -91,13 +91,13 @@ const CheckboxContainer = styled.div `
 
 function JoinMembership(){
 
+  /*
   const [user, setUser] = useState({
-    user_idx: 0,
     created_date: Date(),
     last_modified_date: Date(),
     age: 0,
     email: '',
-    genter: 'none',
+    gender: 'none',
     info: 'agree',
     last_login_date: Date(),
     name: '',
@@ -105,6 +105,14 @@ function JoinMembership(){
     role_type: 'normal',
     status: 'leave'
   });
+  */
+  
+  const [user, setUser] = useState({
+    age: 0,
+    email: '',
+    password: '',
+  });
+
   const handleChange = (e) => {
     setUser({
       ...user,
@@ -130,10 +138,11 @@ function JoinMembership(){
 
   // 가입하기 버튼 누르면 실행
   function joinFetch() {
-   fetch('http://localhost:5000/api/auth/signup', {
+   fetch('http://localhost:8080/api/auth/signup', {
       method:"POST",
       headers : {
-        "Content-Type":"application/json; charset=utf-8"
+        "Content-Type":"application/json",
+        "Accept" : "application/json"
        },
       body: JSON.stringify(user),
     })
@@ -141,14 +150,14 @@ function JoinMembership(){
     .then((response) => response.json())
     .then((response) => {
       console.log(response);
-      // backend에서 설정한 message
-      // 알아와서 수ㅇ
-      if (response.MESSAGE === 'SUCCESS') {
+      console.log(response.email);
+      // backend에서 설정한
+      if (response.email) {
         alert('회원가입 성공!');
         openModal();
       }
-      if (response.MESSAGE === 'EMAIL ALREADY EXISTS') {
-        alert('이미 존재하는 이메일입니다');
+      else {
+        alert('회원가입 실패!');
       }
     })
   };
