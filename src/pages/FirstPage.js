@@ -73,11 +73,12 @@ function FirstPage() {
   function loginFetch() {
     // 백엔드와의 통신을 위한 fetch함수 사용
     let item = {email, password};
-    fetch('http://localhost:5000/api/auth/signup', {
+    // backend url
+    fetch('http://13.125.209.54:8080/api/auth/login', {
       method:"POST",
       headers: {
-        "Content-Type" : "application/json; charset=utf-8",
-        "Accept" : "application/json; charset=utf-8"
+        "Content-Type" : "application/json",
+        "Accept" : "application/json"
       },
       body: JSON.stringify({
         email: item.email,
@@ -86,14 +87,18 @@ function FirstPage() {
     })
     .then(response => response.json())
     .then(response => {
-      console.log(response.AUTHORITIES_KEY);
-			if(response.AUTHORITIES_KEY == null) {
+      
+      // 로그인 실패 시
+			if(response.error === "Unauthorized") {
         alert("아이디 혹은 비밀번호를 확인해 주세요")
       }
-      else {
-        localStorage.setItem('ACCESS_TOKEN', response.ACCESS_TOKEN);
+      else { // 로그인 성공 시
+        localStorage.setItem('access_token', response.accessToken);
+        localStorage.setItem('refresh_token', response.refreshToken);
+        localStorage.setItem('expire', response.accessTokenExpiresIn);
         navigate('/Main')
       }
+      
     })
   }
 
