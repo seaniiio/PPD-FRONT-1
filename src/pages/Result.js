@@ -42,8 +42,10 @@ export const ShowInformation = styled.div `
 
 
 function Result() {
+
     const result = Number(JSON.parse(localStorage.getItem('result')));
     const savedResultArray = JSON.parse(localStorage.getItem('resultArray'));
+    
     return (
         <div>
             <Top state='visible' text="분석결과" home="true"></Top>

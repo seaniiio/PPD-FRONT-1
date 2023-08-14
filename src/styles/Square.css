@@ -1,5 +1,5 @@
 .square-container {
-    display: flex;
+
     flex-wrap: wrap;
     justify-content: center;
     margin: 0 45px;
@@ -7,8 +7,7 @@
   }
   
   .square {
-    flex: 1 0 300px;
-    height: 200px;
+    height: 150px;
     background-color: #cce5ff;
     border-radius: 10px;
     display: flex;
@@ -19,17 +18,13 @@
     box-sizing: border-box;
   }
   
-  .square:nth-child(4) {
-    background-color: #ffd6e5;
-  }
-  
   .square-image {
     width: 80px;
     height: 80px;
   }
   
   .square-text {
-    font-size: 16px;
+    font-size: 20px;
   }
   
   .square-button {
