@@ -142,6 +142,11 @@ function JoinMembership(){
 
   // 가입하기 버튼 누르면 실행
   function joinFetch() {
+    if(user.name === '' || user.email === '' || user.age === 0) {
+      alert("모든 항목을 작성해주세요")
+      return;
+    }
+
    fetch('http://13.125.209.54:8080/api/auth/signup', {
       method:"POST",
       headers : {
