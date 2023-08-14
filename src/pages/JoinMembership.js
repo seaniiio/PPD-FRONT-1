@@ -114,6 +114,10 @@ function JoinMembership(){
   });
 
   const handleChange = (e) => {
+    if(e.target.name === "age" && !Number.isInteger(Number(e.target.value))) {
+      alert('나이는 숫자만 입력해주세요!');
+      return;
+    }
     setUser({
       ...user,
       [e.target.name] : e.target.value
@@ -138,7 +142,12 @@ function JoinMembership(){
 
   // 가입하기 버튼 누르면 실행
   function joinFetch() {
-   fetch('http://localhost:8080/api/auth/signup', {
+    if(user.name === '' || user.email === '' || user.age === 0) {
+      alert("모든 항목을 작성해주세요")
+      return;
+    }
+
+   fetch('http://13.125.209.54:8080/api/auth/signup', {
       method:"POST",
       headers : {
         "Content-Type":"application/json",
@@ -149,15 +158,13 @@ function JoinMembership(){
 
     .then((response) => response.json())
     .then((response) => {
-      console.log(response);
-      console.log(response.email);
-      // backend에서 설정한
-      if (response.email) {
-        alert('회원가입 성공!');
-        openModal();
-      }
-      else {
-        alert('회원가입 실패!');
+      if (response.status === 'OK') {
+        alert('회원가입 성공!')
+        openModal()
+      } else if (response.status === 'USER_DUPLICATED') {
+        alert('이미 존재하는 사용자 입니다.')
+      } else {
+        alert('회원가입 실패!')
       }
     })
   };
