@@ -30,17 +30,14 @@ const ShowImage = styled.img `
 
 const dummy_records = [
   {
-    joint_idx: 1,
     created_date: "2023/12/12",
     result_type: "normal"
   },
   {
-    joint_idx: 2,
     created_date: "2023/11/1",
     result_type: "normal"
   },
   {
-    joint_idx: 3,
     created_date: "2022/5/24",
     result_type: "abnormal"
   },
@@ -119,9 +116,9 @@ function MyRecords() {
         <Top state='visible' text='보행기록'></Top>
         <div>
           {dummy_records.length}개의 기록이 있습니다.
-          {dummy_records.map((it) => (
-            <MyRecord key={it.joint_idx} result = {it.result_type === "normal" ? "normal" : "abnormal"}>{it.created_date} {it.result_type === "normal" ? '' : '비'}정상<ShowImage src={personImg}></ShowImage></MyRecord>
-          ))}
+          {dummy_records.map((it, idx) => (
+            <MyRecord key={it.idx} result = {it.result_type === "normal" ? "normal" : "abnormal"}>{it.created_date} {it.result_type === "normal" ? '' : '비'}정상<ShowImage src={personImg}></ShowImage></MyRecord>
+        ))}
         </div>
     </div>
   );
