@@ -74,7 +74,7 @@ function FirstPage() {
     // 백엔드와의 통신을 위한 fetch함수 사용
     let item = {email, password};
     // backend url
-    fetch('http://13.125.209.54:8080/api/auth/login', {
+    fetch('http://localhost:8080/api/auth/login', {
       method:"POST",
       headers: {
         "Content-Type" : "application/json",
@@ -88,17 +88,15 @@ function FirstPage() {
     .then(response => response.json())
     .then(response => {
       
-      // 로그인 실패 시
-			if(response.error === "Unauthorized") {
-        alert("아이디 혹은 비밀번호를 확인해 주세요")
-      }
-      else { // 로그인 성공 시
-        localStorage.setItem('access_token', response.accessToken);
-        localStorage.setItem('refresh_token', response.refreshToken);
-        localStorage.setItem('expire', response.accessTokenExpiresIn);
+      // 로그인 성공 시
+      if(response.status === "OK") {
+        localStorage.setItem('access_token', response.data.accessToken);
+        console.log("accessToken:", response.data.accessToken);
         navigate('/Main')
       }
-      
+			else if(response.status === 401) {
+        alert("아이디 혹은 비밀번호를 확인해 주세요")
+      }      
     })
   }
 
