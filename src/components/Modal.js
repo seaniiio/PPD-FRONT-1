@@ -73,9 +73,9 @@ export function JoinModal(props) {
             <header>
                 {props.header}
             </header>
-            <main>메인 페이지로 이동합니다.</main>
+            <main>회원가입 성공! 다시 로그인 해주세요.</main>
             <footer>
-               <Link to="/Main"><button onClick={props.close}>확인</button></Link>
+               <Link to="/"><button onClick={props.close}>확인</button></Link>
             </footer>
             </section>
         ) : null}

@@ -14,7 +14,6 @@ function Record() {
 
     const videoTagRef = useRef(null);
     let videoMediaStream = null;
-
     let videoRecorder = null;
     let recordedVideoURL = null;
     let videoBlob = null;
@@ -135,7 +134,7 @@ function Record() {
         console.log("url:", recordedVideoURL);
       
         // fast api 서버
-        const response = await fetch('http://127.0.0.1:8000/video', {
+        const response = await fetch('http://13.125.209.54:8000/video', {
           method: 'POST',
           headers: {//'Content-Type': 'multipart/form-data'
           },
@@ -188,13 +187,13 @@ function Record() {
         // 삐 소리
         handleBeepSound();
         VideoCaptureStart(); // VideoCaptureStart() 함수 호출
-      }, 1000); // 10초 (10000 밀리초) 후에 실행 
+      }, 10000); // 10초 (10000 밀리초) 후에 실행 
 
       setTimeout(() => {
         // 삐 소리
         handleBeepSound();
         VideoCaptureEnd(); // VideoCaptureEnd() 함수 호출
-      }, 4000); // 20초 (20000 밀리초) 후에 촬영 종료
+      }, 20000); // 20초 (20000 밀리초) 후에 촬영 종료
     }
 
     return (

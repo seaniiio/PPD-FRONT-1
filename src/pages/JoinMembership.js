@@ -108,20 +108,25 @@ function JoinMembership(){
   */
   
   const [user, setUser] = useState({
+    name: '',
     age: 0,
     email: '',
     password: '',
   });
 
   const handleChange = (e) => {
-    if(e.target.name === "age" && !Number.isInteger(Number(e.target.value))) {
-      alert('나이는 숫자만 입력해주세요!');
-      return;
-    }
     setUser({
       ...user,
       [e.target.name] : e.target.value
     })
+  }
+
+  const [agree, setAgree] = useState(false);
+  const handleChangeAgree = (e) => {
+    console.log(e.target.checked);
+    if(e.target.checked) {
+      setAgree(true);
+    }
   }
 
   const emailList = ["@naver.com", '@daum.net', '@gmail.com', '@nate.com', '직접입력'];
@@ -142,10 +147,25 @@ function JoinMembership(){
 
   // 가입하기 버튼 누르면 실행
   function joinFetch() {
+    // 형식 관련 조건들
     if(user.name === '' || user.email === '' || user.age === 0) {
       alert("모든 항목을 작성해주세요")
       return;
     }
+    if(!user.email.includes('@')) {
+      alert("이메일 형식을 제대로 작성해주세요(@)")
+      return;
+    }
+    if(user.name.includes(' ') || user.email.includes(' ')) {
+      alert("공백은 포함될 수 없습니다")
+      return;
+    }
+    /*
+    if(!agree) {
+      alert("개인정보 활용에 동의해주세요.")
+      return;
+    }
+    */
 
    fetch('http://localhost:8080/api/auth/signup', {
       method:"POST",
@@ -194,9 +214,9 @@ function JoinMembership(){
 
     </InformationText></p>
     <p><InformationText>비밀번호<InputInformation type='password' name="password" onChange = {handleChange}></InputInformation></InformationText></p>
-    <p><InformationText>나이<InputInformation name="age" onChange={handleChange}></InputInformation></InformationText></p>
+    <p><InformationText>나이<InputInformation name="age" onChange={handleChange} type="number"></InputInformation></InformationText></p>
     <TextContainer> 개인정보 활용 동의 내용~~~ </TextContainer>
-    <CheckboxContainer><div className="agreeText">동의</div><CheckBoxInput type="checkbox"></CheckBoxInput></CheckboxContainer>
+    <CheckboxContainer><div className="agreeText">동의</div><CheckBoxInput name = "agree" type="checkbox" onClick={handleChangeAgree}></CheckBoxInput></CheckboxContainer>
     <p><div className="buttonDiv"><p className="buttonDivText" onClick={joinFetch}>가입하기</p></div></p>
     
     {modalOpen ? <JoinModal header="가입이 완료되었습니다" open={modalOpen} cloas={closeModal}></JoinModal> : null}
