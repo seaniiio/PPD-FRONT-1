@@ -91,7 +91,6 @@ function FirstPage() {
       // 로그인 성공 시
       if(response.status === "OK") {
         localStorage.setItem('access_token', response.data.accessToken);
-        console.log("accessToken:", response.data.accessToken);
         navigate('/Main')
       }
 			else if(response.status === 401) {
