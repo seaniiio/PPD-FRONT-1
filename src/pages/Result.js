@@ -43,12 +43,46 @@ export const ShowInformation = styled.div`
   padding: 6px;
 `
 
+const SaveButton = styled.button `
+    display: flex;
+    margin: 0 auto;
+    margin-top: 10px;
+    background-color:#303030;
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    height: 40px;
+    width: 140px;
+    font-weight: bolder;
+    font-size: 20px;
+    align-items:center;
+    justify-content: center;
+`
+
 function Result() {
   const location = useLocation()
   const [record, setRecord] = useState(location.state && location.state.record)
+  
+  // 기록 서버에 저장
+  const saveRecord = () => {
+    fetch('http://13.125.209.54:8080/api/joint/new', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                'Content-Type': 'application/json',
+                //"Accept" : "application/json"
+            },
+            body: JSON.stringify(record)
+        })
+        .then((response) => response.json())
+        .then((response) =>{
+            console.log('saveRecord');
+            console.log(response);
+        })
+    }
 
   return (
-    <div>
+    <>
       <Top state="visible" text="분석결과" home="true"></Top>
       <br />
       <>
@@ -58,6 +92,7 @@ function Result() {
             2023/05/11 17:51
           </ShowInformation>
         </InformationText>
+
       </>
       <br />
       <>
@@ -67,6 +102,9 @@ function Result() {
             {record.result === 0 ? '' : '비'}정상
           </ShowInformation>
         </InformationText>
+      </>
+      <>
+        <SaveButton onClick={saveRecord}>기록 저장하기</SaveButton>
       </>
 
       <StyledLink
@@ -123,7 +161,7 @@ function Result() {
           허리 각도
         </FeatureResult>
       </StyledLink>
-    </div>
+    </>
   )
 }
 
