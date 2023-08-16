@@ -103,7 +103,7 @@ function MyRecords() {
     })
     return response
   }
-
+  
   // 토큰의 유효성을 검사하기 위해 intereptor 사용
   recordAxios.interceptors.response.use(
     // 200번대 응답이 올때 처리(정상적인 응답일 때)

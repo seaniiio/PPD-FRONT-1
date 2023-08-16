@@ -27,7 +27,7 @@ function App() {
       <Route path="/Loading" element={<Loading />} />
       <Route path="/Normal" element={<Normal />} />
       <Route path="/Abnormal" element={<Abnormal />} />
-      {/* <Route path="/Result" element={<Result />} /> */}
+      <Route path="/Result" element={<Result />} />
       <Route path="/Result/:id" element={<Result />} />
       <Route path="/ResultDetail" element={<ResultDetail />} />
     </Routes>

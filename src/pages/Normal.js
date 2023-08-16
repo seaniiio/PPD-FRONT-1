@@ -10,6 +10,7 @@ function Normal() {
   const [record, setRecord] = useState(location.state && location.state.record)
 
   return (
+
     <div>
       <Top state="visible"></Top>
       <div className="textShow">
@@ -26,7 +27,7 @@ function Normal() {
         </svg>
       </div>
       <Link
-        to={`/Result/${record.idx}`}
+        to={'/Result'}
         state={{ record: record }} // s 객체를 state로 전달
       >
         <Button
