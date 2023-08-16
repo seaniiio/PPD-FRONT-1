@@ -44,9 +44,6 @@ export const ShowInformation = styled.div`
 `
 
 function Result() {
-  const result = Number(JSON.parse(localStorage.getItem('result')))
-  const savedResultArray = JSON.parse(localStorage.getItem('resultArray'))
-
   const location = useLocation()
   const [record, setRecord] = useState(location.state && location.state.record)
 

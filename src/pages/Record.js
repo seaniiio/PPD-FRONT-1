@@ -156,20 +156,8 @@ function Record() {
         navigate_abnormal('/Abnormal', { state: { record: responseData } })
       }
 
-      // 분석 상세 결과 출력
-      const resultArray = responseData[responseData.length - 1]
-      // 다른 페이지에서 사용하기 위해 localStorage에 저장
-      localStorage.setItem('result', JSON.stringify(result))
-      localStorage.setItem('resultArray', JSON.stringify(resultArray))
-
-      console.log('속도:', resultArray[0])
-      console.log('발목 사이 거리:', resultArray[1])
-      console.log('무릎 사이 거리:', resultArray[2])
-      console.log('무릎 각도:', resultArray[3])
-      console.log('팔꿈치 각도:', resultArray[4])
-      console.log('허리 각도:', resultArray[5])
     } catch (error) {
-      console.error('Error uploading video:', error)
+      console.error('Error video:', error)
       alert('걸음이 인식되지 않았습니다. 다시 시도해주세요')
       navigate_record('./')
     }

@@ -77,14 +77,13 @@ function FirstPage() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json',
+        'Accept': 'application/json',
       },
       body: JSON.stringify({
         email: item.email,
         password: item.password,
       }),
     })
-<<<<<<< HEAD
     .then(response => response.json())
     .then(response => {
       
@@ -97,19 +96,6 @@ function FirstPage() {
         alert("아이디 혹은 비밀번호를 확인해 주세요")
       }      
     })
-=======
-      .then(response => response.json())
-      .then(response => {
-        // 로그인 성공 시
-        if (response.status === 'OK') {
-          localStorage.setItem('access_token', response.data.accessToken)
-          console.log('accessToken:', response.data.accessToken)
-          navigate('/Main')
-        } else if (response.status === 401) {
-          alert('아이디 혹은 비밀번호를 확인해 주세요')
-        }
-      })
->>>>>>> add0e56de593b65682c2b4c3191ad3305cee054b
   }
 
   return (
