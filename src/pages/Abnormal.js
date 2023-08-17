@@ -2,7 +2,7 @@ import '../App.css'
 import Top from '../components/Top'
 import Button from '../components/Button'
 import '../styles/Loading.css'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation} from 'react-router-dom'
 import { useState } from 'react'
 
 function Abnormal() {

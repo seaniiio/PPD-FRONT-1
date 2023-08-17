@@ -1,0 +1,29 @@
+.normalhighlight {
+    display: inline-block;
+    box-shadow: inset 0 -10px 0 #cce5ff; 
+    font-weight: bolder;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.abnormalhighlight {
+    display: inline-block;
+    box-shadow: inset 0 -10px 0 #ffd6e5; 
+    font-weight: bolder;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.myhighlight {
+    display: inline-block;
+    box-shadow: inset 0 -10px 0 #9c9c9c; 
+    font-weight: bolder;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.label {
+    text-align: center;
+    margin-top: 40px;
+    
+}
