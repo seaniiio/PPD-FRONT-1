@@ -15,6 +15,7 @@ const Center = styled.div `
   margin-bottom: 10px;
   position: relative;
   top: 40px;
+  
 `
 const Image = styled.img `
   width: 200px;
