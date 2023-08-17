@@ -1,39 +1,79 @@
 import '../App.css'
 import Top from '../components/Top'
-import Center from '../components/Center'
 import styled from 'styled-components'
 import { Link, useNavigate } from 'react-router-dom'
 import React from 'react'
 import { useState } from 'react'
 
-const LoginPageText = styled.div`
-  font-size: 30px;
-  font-weight: bolder;
+const Center = styled.div `
+  display: inline-block;
+  font-size: 40px;
+  margin-bottom: 10px;
+  position: relative;
+  top: 200px;
 `
 
-const LoginBox = styled.input`
-  position: absolute;
-  left: 40%;
-  width: 200px;
+const LoginContainer = styled.div `
+  text-align: center;
+  margin: 10px;
+`
+
+const LoginInput = styled.input`
+  display: inline-block;
+  position: relative;
+  width: 250px;
   height: 40px;
   font-size: 20px;
   border: 0;
-  background-color: lightgray;
-  padding-left: 10px;
-  border-radius: 20px;
-  ${props =>
-    props.type === 'password' &&
-    `
-     font: normal 62.5% "Lucida Sans Unicode",sans-serif;
-    `}
+  background-color: #f2f2f2;
+  border-radius: 14px;
+`
+
+const HorizenContainer = styled.div `
+  position: relative;
+  top: 100px;
+  text-align: center;
+`
+
+const Horizen = styled.hr `
+  display: inline-block;  
+  width: 35%;
+  margin: 10px;
+  color: #807e7e
+`
+const Or = styled.div `
+  display: inline-block;
+  color: #807e7e;
+  margin: 10px;
+`
+
+const LoginButtonContainer = styled.div `
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+`
+
+const LoginButton = styled.div `
+  display: flex;
+  background-color: #4550f5;
+  width: 250px;
+  height: 50px;
+  border-radius: 14px;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  font-weight: bolder;
 `
 
 //회원가입 글자
 const Join = styled.div`
   text-align: center;
   position: relative;
-  top: 50px;
+  top: 100px;
 `
+
 
 function FirstPage() {
   // id, pwd 저장(초기값 공백)
@@ -83,24 +123,31 @@ function FirstPage() {
   return (
     <div>
       <Top state="invisible"></Top>
-      <Center img="person"></Center>
-      <>
-        <LoginPageText onChange={handleChangeEmail}>
-          이메일 <LoginBox />
-        </LoginPageText>
-      </>
-      <br/>
-      <>
-        <LoginPageText onChange={handleChangePwd}>
-          비밀번호 <LoginBox type="password" />
-        </LoginPageText>
-      </>
-             
-      <div className="buttonDiv">
-        <p className="buttonDivText" onClick={loginFetch}>
-          로그인
-        </p>
+      <div style={{'textAlign': 'center', 'height':300}}>
+        <Center>
+          <p>𝓘𝓷-𝓟𝓵𝓪𝓽𝓯𝓸𝓻𝓶</p>
+        </Center>
       </div>
+
+      <LoginContainer>
+        <LoginInput placeholder='𝒆𝒎𝒂𝒊𝒍' onChange={handleChangeEmail}/>
+      </LoginContainer>
+
+      <LoginContainer>
+        <LoginInput type="password" placeholder='𝒑𝒂𝒔𝒔𝒘𝒐𝒓𝒅' onChange={handleChangePwd}/>
+      </LoginContainer>
+
+      <LoginButtonContainer>  
+        <LoginButton onClick={loginFetch}>
+          Log in
+        </LoginButton>
+      </LoginButtonContainer>
+
+      <HorizenContainer>
+        <Horizen />
+          <Or>OR</Or>
+        <Horizen />
+      </HorizenContainer>
 
       <Join>
         <Link to="/Join">회원가입</Link>
