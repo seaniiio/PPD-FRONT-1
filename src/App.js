@@ -12,6 +12,7 @@ import Normal from './pages/Normal'
 import Abnormal from './pages/Abnormal'
 import Result from './pages/Result'
 import ResultDetail from './pages/ResultDetail'
+import EditInformation from './pages/EditInformation'
 import { Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -30,7 +31,9 @@ function App() {
       <Route path="/Result" element={<Result />} />
       <Route path="/Result/:id" element={<Result />} />
       <Route path="/ResultDetail" element={<ResultDetail />} />
+      <Route path="/EditInfo" element={<EditInformation />} />
     </Routes>
+    
   )
 }
 

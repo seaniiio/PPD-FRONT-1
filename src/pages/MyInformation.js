@@ -4,9 +4,10 @@ import Top from '../components/Top'
 import Button from '../components/Button'
 import Center from '../components/Center'
 import { Modal, EditModal } from '../components/Modal'
-import { InformationText, InformationContainer } from './JoinMembership'
+import { InformationText, InputInformation } from './JoinMembership'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import axios from 'axios'
 
@@ -20,6 +21,7 @@ export const ShowInformation = styled.div`
   font-weight: normal;
   padding: 6px;
 `
+
 
 function MyInformation() {
   //모달의 open상태. true이면 모달 open
@@ -41,7 +43,6 @@ function MyInformation() {
   const closeModal = () => {
     setModalOpen(false)
   }
-
   const showButton = () => {
     setEditButtonShow(true)
   }
@@ -49,12 +50,21 @@ function MyInformation() {
   // 사용자 정보를 담는 state
   const [userInfo, setUserInfo] = useState([])
 
+  // 수정 버튼이 보이는 상태
+  /*
+  const [editState, setEditState] = useState(false)
+  const handleEditStateTrue = () => {
+    setEditState(true);
+  }
+  */
+
   useEffect(() => {
     infoFetch()
   }, []) // 빈 배열을 넣어 이 효과가 초기 렌더링 후에 한 번만 실행되도록 한다
 
   const infoFetch = () => {
-    fetch('http://13.125.209.54:8080/api/user/me', {
+    //http://13.125.209.54:8080/api/user/me
+    fetch('http://localhost:8080/api/user/me', {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('access_token'),
@@ -69,85 +79,21 @@ function MyInformation() {
       })
   }
 
-  //useEffect(() => {infoAxios()}, []); // 빈 배열을 넣어 이 효과가 초기 렌더링 후에 한 번만 실행되도록 한다
-
-  // token을 이용해서 요청을 보내기 위해 axios를 사용한다
-  // 토큰이 필요한 api요청을 보내는 axios인스턴스
-  /*
-    const infoAxios = axios.post({
-      baseURL: 'http://13.125.209.54:8080/api/user/me',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-      },
-      body: {
-
-      }
-    });
-
-    
-
-    //refresh token api
-    async function postRefreshToken() {
-      const response = await infoAxios.post('/api/v1/auth/ refresh', { //
-        refreshToken: localStorage.getItem('refresh_token'),
-      });
-      return response;
-    }
-
-    // 토큰의 유효성을 검사하기 위해 intereptor 사용
-    infoAxios.interceptors.response.use(
-      // 200번대 응답이 올때 처리(정상적인 응답일 때)
-      (response) => {
-        return response;
-      },
-      // 200번대 응답이 아닐 경우 처리
-      async (error) => {
-        const {
-          config, //
-          response: { status }, //
-        } = error;
-        
-      // 토큰이 만료되을 때
-        if (status === 401) { // 토큰이 만료된 경우의 조건을 넣기(백엔드)
-          if (error.response.data.message === 'Unauthorized') { //
-            const originRequest = config;
-            //리프레시 토큰 api
-            const response = await postRefreshToken();
-            //리프레시 토큰 요청이 성공할 때
-            if (response.status === 200) { //
-              const newAccessToken = response.data.token; //
-              localStorage.setItem('access_token', response.data.token); //
-              localStorage.setItem('refresh_token', response.data.refreshToken); //
-              axios.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
-              //진행중이던 요청 이어서하기
-              originRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-              return axios(originRequest);
-            //리프레시 토큰 요청이 실패할때(리프레시 토큰도 만료되었을때 = 재로그인 안내)
-            } else if (response.status === 404) {
-             //alert(LOGIN.MESSAGE.EXPIRED); //
-              window.location.replace('/sign-in');
-            } else {
-              //alert(LOGIN.MESSAGE.ETC);
-            }
-          }
-        }
-        return Promise.reject(error);
-      },
-    );
-
-      */
-
   return (
     <div>
       <Top state="edit" text="내정보"></Top>
-      <div className="editButton" onClick={showButton}>
-        정보수정
-      </div>
+      <Link to="/EditInfo" state={{ record: userInfo }}>
+        <div className="editButton">
+          정보수정
+        </div>
+      </Link>
 
-      {/* backend 연결 후에 response 콘솔찍어서 확인한 뒤에 userInfo.name 넣기 */}
       <p>
         <InformationText>
-          이름<ShowInformation>{userInfo.name}</ShowInformation>
+          이름
+          {editButtonShow ?
+           <InputInformation name="name" placeholder={userInfo.name}></InputInformation> 
+          :<ShowInformation>{userInfo.name}</ShowInformation>}
         </InformationText>
         <div
           className={

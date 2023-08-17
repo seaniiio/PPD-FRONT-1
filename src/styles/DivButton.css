@@ -12,6 +12,7 @@ button모양의 div를 정의
   margin: auto;
   position: relative;
   top: 30px;
+  text-align:center;
 }
 
   .buttonDivText {
