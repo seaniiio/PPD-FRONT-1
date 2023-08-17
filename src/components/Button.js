@@ -6,6 +6,26 @@ import styled from 'styled-components';
 //prop.show: 표시할 버튼 크기
 //button은 absolute로 고정
 
+export const BlueButtonContainer = styled.div `
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+`
+
+export const BlueButton = styled.div `
+  display: flex;
+  background-color: #4550f5;
+  width: 250px;
+  height: 50px;
+  border-radius: 14px;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  font-weight: bolder;
+`
+
 //기본 버튼
 const StyledButton = styled.button `
   background-color:lightgray;

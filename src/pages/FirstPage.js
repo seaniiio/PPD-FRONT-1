@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import { Link, useNavigate } from 'react-router-dom'
 import React from 'react'
 import { useState } from 'react'
+import {BlueButton, BlueButtonContainer} from '../components/Button'
+import {TextInput, TextInputContainer} from '../components/Input'
 
 const Center = styled.div `
   display: inline-block;
@@ -11,22 +13,6 @@ const Center = styled.div `
   margin-bottom: 10px;
   position: relative;
   top: 200px;
-`
-
-const LoginContainer = styled.div `
-  text-align: center;
-  margin: 10px;
-`
-
-const LoginInput = styled.input`
-  display: inline-block;
-  position: relative;
-  width: 250px;
-  height: 40px;
-  font-size: 20px;
-  border: 0;
-  background-color: #f2f2f2;
-  border-radius: 14px;
 `
 
 const HorizenContainer = styled.div `
@@ -45,26 +31,6 @@ const Or = styled.div `
   display: inline-block;
   color: #807e7e;
   margin: 10px;
-`
-
-const LoginButtonContainer = styled.div `
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-`
-
-const LoginButton = styled.div `
-  display: flex;
-  background-color: #4550f5;
-  width: 250px;
-  height: 50px;
-  border-radius: 14px;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-size: 20px;
-  font-weight: bolder;
 `
 
 //회원가입 글자
@@ -129,19 +95,19 @@ function FirstPage() {
         </Center>
       </div>
 
-      <LoginContainer>
-        <LoginInput placeholder='𝒆𝒎𝒂𝒊𝒍' onChange={handleChangeEmail}/>
-      </LoginContainer>
+      <TextInputContainer>
+        <TextInput placeholder='𝒆𝒎𝒂𝒊𝒍' onChange={handleChangeEmail}/>
+      </TextInputContainer>
 
-      <LoginContainer>
-        <LoginInput type="password" placeholder='𝒑𝒂𝒔𝒔𝒘𝒐𝒓𝒅' onChange={handleChangePwd}/>
-      </LoginContainer>
+      <TextInputContainer>
+        <TextInput type="password" placeholder='𝒑𝒂𝒔𝒔𝒘𝒐𝒓𝒅' onChange={handleChangePwd}/>
+      </TextInputContainer>
 
-      <LoginButtonContainer>  
-        <LoginButton onClick={loginFetch}>
+      <BlueButtonContainer>  
+        <BlueButton onClick={loginFetch}>
           Log in
-        </LoginButton>
-      </LoginButtonContainer>
+        </BlueButton>
+      </BlueButtonContainer>
 
       <HorizenContainer>
         <Horizen />
