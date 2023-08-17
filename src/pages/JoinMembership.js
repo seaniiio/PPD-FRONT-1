@@ -3,9 +3,25 @@ import Top from '../components/Top'
 import {JoinModal} from '../components/Modal'
 import {useState} from 'react';
 import styled from 'styled-components';
-import '../styles/DivButton.css';
+import {BlueButton, BlueButtonContainer} from '../components/Button'
+import { TextInput, TextInputContainer } from '../components/Input';
 
-//글자는 수직정렬
+// In-Platform
+const Logo = styled.div `
+  font-size: 40px;
+  text-align: center;
+  height: 100px;
+  margin-top: 150px;
+
+`
+// 가입하기 버튼
+const JoinButton = styled(BlueButton) `
+  margin: 30px;
+`
+const JoinInput = styled(TextInput) `
+  margin: 4px;
+`
+
 export const InformationText = styled.span `
   font-size:30px;
   font-weight:bolder;
@@ -24,15 +40,21 @@ export const InputInformation = styled.input `
     `}
 `
 
-//개인정보 활용 동의 스크롤 창
+//개인정보 활용 동의 창
 const TextContainer = styled.div `
   margin: auto;
+  margin-top: 40px;
   text-align:center;
   top:20px;
   overflow:scroll;
   width:300px;
   height:30px;
-  border: 1px solid black;
+  border: 1px solid;
+  border-radius: 4px;
+  color: #4a4a4a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 // 체크박스
@@ -150,32 +172,40 @@ function JoinMembership(){
 
   return (
   <div>
-    <Top state='visible' text='회원가입'></Top>
-    <br/>
-    <>
-      <InformationText>이름<InputInformation name="name" onChange={handleChange}></InputInformation></InformationText>
-    </><br/><br/>
-      <>
-      <InformationText>이메일<InputInformation name="email" onChange={handleChange}></InputInformation>
-      </InformationText>
-    </><br/><br/>
-    <>
-      <InformationText>비밀번호<InputInformation type='password' name="password" onChange = {handleChange}></InputInformation></InformationText>
-    </><br /><br/>
-    <>
-      <InformationText>나이<InputInformation name="age" onChange={handleChange} type="number"></InputInformation></InformationText>
-    </><br /><br/>
-    <>
-    <TextContainer> 정보 및 데이터가 활용되는 것에 동의합니다. </TextContainer>
+    <Logo><p style={{}}>𝓘𝓷-𝓟𝓵𝓪𝓽𝓯𝓸𝓻𝓶</p></Logo>
+
+
+      <TextInputContainer>
+        <JoinInput name="name" onChange={handleChange} placeholder="𝒏𝒂𝒎𝒆"/>
+      </TextInputContainer>
+
+      <TextInputContainer>
+        <JoinInput name="email" onChange={handleChange} placeholder="𝒆𝒎𝒂𝒊𝒍"/>
+      </TextInputContainer>
+
+      <TextInputContainer>
+        <JoinInput type='password' name="password" onChange = {handleChange} placeholder="𝒑𝒂𝒔𝒔𝒘𝒐𝒓𝒅"/>
+      </TextInputContainer>
+
+      <TextInputContainer>
+        <JoinInput name="age" onChange={handleChange} type="number" placeholder="𝒂𝒈𝒆"/>
+        </TextInputContainer>
+
+    <TextContainer> 
+      <p>정보 및 데이터가 활용되는 것에 동의합니다.</p>
+    </TextContainer>
+
     <CheckboxContainer>
       <div className="agreeText">동의</div>
       <CheckBoxInput name = "agree" type="checkbox" onClick={handleChangeAgree}></CheckBoxInput>
     </CheckboxContainer>
-    </>
+    
 
-    <>
-      <div className="buttonDiv"><p className="buttonDivText" onClick={joinFetch}>가입하기</p></div>
-    </>
+    <BlueButtonContainer>  
+        <JoinButton onClick={joinFetch}>
+          가입하기
+        </JoinButton>
+      </BlueButtonContainer>
     
     {modalOpen ? 
       <JoinModal header="가입이 완료되었습니다" open={modalOpen} cloas={closeModal}></JoinModal> : null}

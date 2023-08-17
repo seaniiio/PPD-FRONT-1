@@ -6,21 +6,29 @@ import React from 'react'
 import { useState } from 'react'
 import {BlueButton, BlueButtonContainer} from '../components/Button'
 import {TextInput, TextInputContainer} from '../components/Input'
+import Walking from '../images/walking.gif'
 
+// In-Platform
 const Center = styled.div `
   display: inline-block;
   font-size: 40px;
   margin-bottom: 10px;
   position: relative;
-  top: 200px;
+  top: 40px;
 `
+const Image = styled.img `
+  width: 200px;
+  height: 200px;
+  position: relative;
+  top: 60px;
 
+`
+// - or - 
 const HorizenContainer = styled.div `
   position: relative;
   top: 100px;
   text-align: center;
 `
-
 const Horizen = styled.hr `
   display: inline-block;  
   width: 35%;
@@ -33,11 +41,20 @@ const Or = styled.div `
   margin: 10px;
 `
 
-//회원가입 글자
+//회원가입
 const Join = styled.div`
-  text-align: center;
   position: relative;
-  top: 100px;
+  top: 120px;
+  text-align: center;
+  text-decoration: none;
+`
+const JoinText = styled.button`
+  display: inline-block;
+  background: none;
+  border: none;
+  &:hover {
+    text-decoration: underline;
+  }
 `
 
 
@@ -58,6 +75,10 @@ function FirstPage() {
   }
 
   const navigate = useNavigate()
+  const navigateJoin = useNavigate()
+  const navigateToJoin = () => {
+    navigateJoin('/Join')
+  }
   // 로그인 버튼 클릭 시 실행되는 함수
   function loginFetch() {
     // 백엔드와의 통신을 위한 fetch함수 사용
@@ -88,9 +109,13 @@ function FirstPage() {
 
   return (
     <div>
-      <Top state="invisible"></Top>
-      <div style={{'textAlign': 'center', 'height':300}}>
+      <Top state="invisible" />
+
+      
+
+      <div style={{'textAlign': 'center'}}>
         <Center>
+          <Image src={Walking}/>
           <p>𝓘𝓷-𝓟𝓵𝓪𝓽𝓯𝓸𝓻𝓶</p>
         </Center>
       </div>
@@ -115,8 +140,8 @@ function FirstPage() {
         <Horizen />
       </HorizenContainer>
 
-      <Join>
-        <Link to="/Join">회원가입</Link>
+      <Join onClick={navigateToJoin}>
+        <JoinText>회원가입</JoinText>
       </Join>
     </div>
   )

@@ -11,9 +11,10 @@ export const BlueButtonContainer = styled.div `
   text-align: center;
   justify-content: center;
   align-items: center;
+
 `
 
-export const BlueButton = styled.div `
+export const BlueButton = styled.button `
   display: flex;
   background-color: #4550f5;
   width: 250px;
@@ -24,6 +25,11 @@ export const BlueButton = styled.div `
   color: white;
   font-size: 20px;
   font-weight: bolder;
+  border: none;
+  transition: .2s ease-in-out,box-shadow .2s ease-in-out;
+  &:hover{
+    background-color:#01086e;
+  }
 `
 
 //기본 버튼
