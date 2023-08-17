@@ -81,6 +81,8 @@ function Result() {
         })
     }
 
+    const navigate = useNavigate();
+
   return (
     <>
       <Top state="visible" text="분석결과" home="true"></Top>
@@ -107,7 +109,7 @@ function Result() {
         <SaveButton onClick={saveRecord}>기록 저장하기</SaveButton>
       </>
 
-      <StyledLink
+      <StyledLink data={record}
         to={record.resultTypes[0] === 1 ? '/ResultDetail' : undefined}
       >
         <FeatureResult
@@ -116,7 +118,7 @@ function Result() {
           속도
         </FeatureResult>
       </StyledLink>
-      <StyledLink
+      <StyledLink data={record}
         to={record.resultTypes[1] === 1 ? '/ResultDetail' : undefined}
       >
         <FeatureResult
@@ -125,7 +127,7 @@ function Result() {
           발목 사이 거리
         </FeatureResult>
       </StyledLink>
-      <StyledLink
+      <StyledLink data={record}
         to={record.resultTypes[2] === 1 ? '/ResultDetail' : undefined}
       >
         <FeatureResult
@@ -134,7 +136,7 @@ function Result() {
           무릎 사이 거리
         </FeatureResult>
       </StyledLink>
-      <StyledLink
+      <StyledLink data={record}
         to={record.resultTypes[3] === 1 ? '/ResultDetail' : undefined}
       >
         <FeatureResult
@@ -143,7 +145,7 @@ function Result() {
           무릎 각도
         </FeatureResult>
       </StyledLink>
-      <StyledLink
+      <StyledLink data={record}
         to={record.resultTypes[4] === 1 ? '/ResultDetail' : undefined}
       >
         <FeatureResult
@@ -152,7 +154,7 @@ function Result() {
           팔꿈치 각도
         </FeatureResult>
       </StyledLink>
-      <StyledLink
+      <StyledLink data={record}
         to={record.resultTypes[5] === 1 ? '/ResultDetail' : undefined}
       >
         <FeatureResult
