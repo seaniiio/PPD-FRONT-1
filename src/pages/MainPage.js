@@ -2,10 +2,6 @@ import '../App.css';
 import Top from '../components/Top'
 import Button from '../components/Button'
 import Center from '../components/Center'
-import { pwdInputModal } from '../components/Modal';
-import Measure from './Record'
-import MyInformation from './MyInformation';
-import MyRecords from './MyRecords';
 import {Link} from 'react-router-dom'
 import styled from 'styled-components';
 
@@ -13,6 +9,7 @@ import styled from 'styled-components';
 const ToCenter = styled.div `
   text-align:center;
 `
+
 //메인페이지
 function MainPage() {
     return (

@@ -5,7 +5,6 @@ import personImg from '../images/icon_person.png'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { Button } from 'react-bootstrap'
 
 const MyRecord = styled.div`
   height: 120px;
@@ -19,9 +18,7 @@ const MyRecord = styled.div`
   box-sizing: border-box;
   ${props =>
     props.result === 'abnormal' &&
-    `
-        background-color: #ffd6e5;
-    `}
+    `background-color: #ffd6e5;`}
 `
 //이미지를 보여줄 때
 const ShowImage = styled.img`
@@ -55,20 +52,6 @@ const PurpleButton = styled.button`
     background-color: #6a1cb2;
   }
 `
-const dummy_records = [
-  {
-    created_date: '2023/12/12',
-    result_type: 'normal',
-  },
-  {
-    created_date: '2023/11/1',
-    result_type: 'normal',
-  },
-  {
-    created_date: '2022/5/24',
-    result_type: 'abnormal',
-  },
-]
 
 function MyRecords() {
   const [records, setRecords] = useState([])
@@ -119,25 +102,22 @@ function MyRecords() {
 
       // 토큰이 만료되을 때
       if (status === 401) {
-        // 토큰이 만료된 경우의 조건을 넣기(백엔드)
+        // 토큰이 만료된 경우의 조건을 넣기
         if (error.response.data.message === 'Unauthorized') {
-          //
           const originRequest = config
           //리프레시 토큰 api
           const response = await postRefreshToken()
           //리프레시 토큰 요청이 성공할 때
           if (response.status === 200) {
-            //
-            const newAccessToken = response.data.token //
-            localStorage.setItem('access_token', response.data.token) //
-            localStorage.setItem('refresh_token', response.data.refreshToken) //
+            const newAccessToken = response.data.token 
+            localStorage.setItem('access_token', response.data.token) 
+            localStorage.setItem('refresh_token', response.data.refreshToken) 
             axios.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`
             //진행중이던 요청 이어서하기
             originRequest.headers.Authorization = `Bearer ${newAccessToken}`
             return axios(originRequest)
             //리프레시 토큰 요청이 실패할때(리프레시 토큰도 만료되었을때 = 재로그인 안내)
           } else if (response.status === 404) {
-            //alert(LOGIN.MESSAGE.EXPIRED); //
             window.location.replace('/sign-in')
           } else {
             //alert(LOGIN.MESSAGE.ETC);

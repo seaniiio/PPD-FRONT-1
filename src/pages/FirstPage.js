@@ -1,24 +1,16 @@
 import '../App.css'
 import Top from '../components/Top'
-import Button from '../components/Button'
 import Center from '../components/Center'
-import JoinMembership from './JoinMembership'
-import MainPage from './MainPage'
 import styled from 'styled-components'
 import { Link, useNavigate } from 'react-router-dom'
 import React from 'react'
 import { useState } from 'react'
-import { useMediaQuery } from 'react-responsive'
 
-// 반응형으로 바꿔야함
-//로그인 페이지에서 "아이디", "비밀번호" 텍스트
 const LoginPageText = styled.div`
   font-size: 30px;
   font-weight: bolder;
 `
 
-// 반응형으로 바꿔야함
-//아이디, 비밀번호 입력하는 부분
 const LoginBox = styled.input`
   position: absolute;
   left: 40%;
@@ -43,14 +35,6 @@ const Join = styled.div`
   top: 50px;
 `
 
-//아이디, 비밀번호 입력부분 감싸는 container
-const LoginContainer = styled.div`
-  position: relative;
-  width: 400px;
-  padding: 10px;
-  margin: auto;
-`
-
 function FirstPage() {
   // id, pwd 저장(초기값 공백)
   let [email, setEmail] = useState('')
@@ -72,7 +56,6 @@ function FirstPage() {
   function loginFetch() {
     // 백엔드와의 통신을 위한 fetch함수 사용
     let item = { email, password }
-    // backend url
     fetch('http://13.125.209.54:8080/api/auth/login', {
       method: 'POST',
       headers: {
@@ -86,7 +69,6 @@ function FirstPage() {
     })
     .then(response => response.json())
     .then(response => {
-      
       // 로그인 성공 시
       if(response.status === "OK") {
         localStorage.setItem('access_token', response.data.accessToken);
@@ -102,26 +84,24 @@ function FirstPage() {
     <div>
       <Top state="invisible"></Top>
       <Center img="person"></Center>
-      <LoginContainer>
-        <div>
-          <p>
-            <LoginPageText onChange={handleChangeEmail}>
-              이메일 <LoginBox />
-            </LoginPageText>
-          </p>
-          <p>
-            <LoginPageText onChange={handleChangePwd}>
-              비밀번호 <LoginBox type="password" />
-            </LoginPageText>
-          </p>
-        </div>
-      </LoginContainer>
-
+      <>
+        <LoginPageText onChange={handleChangeEmail}>
+          이메일 <LoginBox />
+        </LoginPageText>
+      </>
+      <br/>
+      <>
+        <LoginPageText onChange={handleChangePwd}>
+          비밀번호 <LoginBox type="password" />
+        </LoginPageText>
+      </>
+             
       <div className="buttonDiv">
         <p className="buttonDivText" onClick={loginFetch}>
           로그인
         </p>
       </div>
+
       <Join>
         <Link to="/Join">회원가입</Link>
       </Join>

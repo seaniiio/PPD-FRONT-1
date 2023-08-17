@@ -27,9 +27,7 @@ const FeatureResult = styled.div`
   font-size: 30px;
   ${props =>
     props.result === 'abnormal' &&
-    `
-        background-color: #ffd6e5;
-    `}
+    ` background-color: #ffd6e5;`}
 `
 
 export const ShowInformation = styled.div`
@@ -80,9 +78,7 @@ function Result() {
             console.log(response);
         })
     }
-
-    const navigate = useNavigate();
-
+    
   return (
     <>
       <Top state="visible" text="분석결과" home="true"></Top>
