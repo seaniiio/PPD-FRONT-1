@@ -33,7 +33,7 @@ function EditInformation() {
     const [userInfo, setUserInfo] = useState(location.state && location.state.userInfo);
     console.log(userInfo);
 
-    const navigate = useNavigate('/MyInfo');
+    const navigate = useNavigate();
 
     // 회원정보 수정(onChange)시 실행
     const handleChangeInfo = (e) => {
@@ -55,9 +55,14 @@ function EditInformation() {
             alert("공백은 포함될 수 없습니다")
             return;
         }
+        if(userInfo.age > 150) {
+            alert("나이는 150까지 입력 가능합니다.")
+            return;
+        }
 
         // post 요청
-        fetch('http://13.125.209.54:8080/api/user/me/update', {
+        //http://13.125.209.54:8080/api/user/me/update
+        fetch('http://localhost:8080/api/user/me/update', {
             method:"PUT",
             headers : {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`,
@@ -69,9 +74,9 @@ function EditInformation() {
         .then(response => response.json())
         .then(response => {
             console.log(response)
-            if(response.statue === 'OK') {
+            if(response.status === 'OK') {
                 alert(response.message);
-                navigate();
+                navigate('/MyInfo');
             }
         })
     }
