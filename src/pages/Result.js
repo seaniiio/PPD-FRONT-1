@@ -63,7 +63,8 @@ function Result() {
   
   // 기록 서버에 저장
   const saveRecord = () => {
-    fetch('http://13.125.209.54:8080/api/joint/new', {
+    //http://13.125.209.54:8080/api/joint/new
+    fetch('http://localhost:8080/api/joint/new', {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`,
@@ -106,7 +107,7 @@ function Result() {
       </>
 
       <StyledLink state={{record: record, idx_: 0}}
-        to={record.resultTypes[0] === 1 ? `/ResultDetail` : undefined}
+        to='/ResultDetail'
       >
         <FeatureResult
           result={record.resultTypes[0] === 1 ? 'abnormal' : undefined}
@@ -115,7 +116,7 @@ function Result() {
         </FeatureResult>
       </StyledLink>
       <StyledLink state={{record: record, idx_: 1}}
-        to={record.resultTypes[1] === 1 ? '/ResultDetail' : undefined}
+        to='/ResultDetail'
       >
         <FeatureResult
           result={record.resultTypes[1] === 1 ? 'abnormal' : undefined}
@@ -124,7 +125,7 @@ function Result() {
         </FeatureResult>
       </StyledLink>
       <StyledLink state={{record: record, idx_: 2}}
-        to={record.resultTypes[2] === 1 ? '/ResultDetail' : undefined}
+        to='/ResultDetail'
       >
         <FeatureResult
           result={record.resultTypes[2] === 1 ? 'abnormal' : undefined}
@@ -133,7 +134,7 @@ function Result() {
         </FeatureResult>
       </StyledLink>
       <StyledLink state={{record: record, idx_: 3}}
-        to={record.resultTypes[3] === 1 ? '/ResultDetail' : undefined}
+        to='/ResultDetail'
       >
         <FeatureResult
           result={record.resultTypes[3] === 1 ? 'abnormal' : undefined}
@@ -142,7 +143,7 @@ function Result() {
         </FeatureResult>
       </StyledLink>
       <StyledLink state={{record: record, idx_: 4}}
-        to={record.resultTypes[4] === 1 ? '/ResultDetail' : undefined}
+        to='/ResultDetail'
       >
         <FeatureResult
           result={record.resultTypes[4] === 1 ? 'abnormal' : undefined}
@@ -151,7 +152,7 @@ function Result() {
         </FeatureResult>
       </StyledLink>
       <StyledLink state={{record: record, idx_: 5}}
-        to={record.resultTypes[5] === 1 ? '/ResultDetail' : undefined}
+        to='/ResultDetail'
       >
         <FeatureResult
           result={record.resultTypes[5] === 1 ? 'abnormal' : undefined}
