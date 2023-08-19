@@ -1,24 +1,39 @@
 import {Link, useNavigate, useLocation} from 'react-router-dom'
-import {InformationText, InputInformation} from './JoinMembership'
 import { useState, useEffect } from 'react'
-import Button from '../components/Button'
-import Top from '../components/Top'
+import {TopBar} from '../components/TopBar'
+import {ShowInformation, InformationContainer, InformationBox, PersonImageContainer, PersonImage, NameContainer, Hr, InformationText, Information, EditButton, EditImage} from './MyInformation'
 import styled from 'styled-components'
+import personImg from '../images/free-icon-person-2815428.png'
 import '../styles/DivButton.css'
+import checkImg from '../images/check.png'
+import axios from 'axios'
 
-const InfoContainer = styled.div `
-    margin: 20px;
+const NameEdit = styled.input `
+    border: none;
+    width: 150px;
+    height: 40px;
+    font-size: 26px;
+    margin-top: 30px;
+    text-align: center;
+    border-radius: 20px;
 `
 
-const dummyUser = {
-    name: "siwon",
-    age: 14,
-    email: "siwon@"
-}
+const AgeEdit = styled.input `
+    border: none;
+    width: 60px;
+    height: 40px;
+    font-size: 26px;
+    margin-top: 4px;
+    text-align: center;
+    border-radius: 20px;
+`
 
 function EditInformation() {
-    const location = useLocation()
-    const [userInfo, setUserInfo] = useState(location.state && location.state.userInfo)
+    const location = useLocation();
+    const [userInfo, setUserInfo] = useState(location.state && location.state.userInfo);
+    console.log(userInfo);
+
+    const navigate = useNavigate();
 
     // 회원정보 수정(onChange)시 실행
     const handleChangeInfo = (e) => {
@@ -36,18 +51,19 @@ function EditInformation() {
             alert("모든 항목을 작성해주세요")
             return;
         }
-        if(!userInfo.email.includes('@')) {
-            alert("이메일 형식을 제대로 작성해주세요(@)")
-            return;
-        }
         if(userInfo.name.includes(' ') || userInfo.email.includes(' ')) {
             alert("공백은 포함될 수 없습니다")
             return;
         }
+        if(userInfo.age > 150) {
+            alert("나이는 150까지 입력 가능합니다.")
+            return;
+        }
 
         // post 요청
-        fetch('http://13.125.209.54:8080/api/user/me/update', {
-            method:"POST",
+        //http://13.125.209.54:8080/api/user/me/update
+        fetch('http://localhost:8080/api/user/me/update', {
+            method:"PUT",
             headers : {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`,
                 "Content-Type":"application/json",
@@ -58,30 +74,50 @@ function EditInformation() {
         .then(response => response.json())
         .then(response => {
             console.log(response)
+            if(response.status === 'OK') {
+                alert(response.message);
+                navigate('/MyInfo');
+            }
         })
     }
 
     return (
         <div>
-            <Top state='visible' text='정보 수정'></Top>
-            <InfoContainer>
-                <>
-                    <InformationText>이름<InputInformation name="name" defaultValue={dummyUser.name} onChange={handleChangeInfo}/></InformationText>
-                </>
-                <br/><br/>
-                <>
-                    <InformationText>이메일<InputInformation name="email" defaultValue={dummyUser.email} onChange={handleChangeInfo}/></InformationText>
-                </>
-                <br/><br/>
-                <>
-                    <InformationText>나이<InputInformation name="age" type="number" defaultValue={dummyUser.age} onChange={handleChangeInfo}/></InformationText>
-                </>
-            </InfoContainer>
+            <TopBar text="정보 수정"></TopBar>
 
-            <div className="buttonDiv" onClick={editFetch}>
-                수정하기
-            </div>
-
+            <InformationContainer>
+            <InformationBox>
+                <>
+                <PersonImageContainer>
+                    <PersonImage src={personImg} />
+                </PersonImageContainer>
+                </>
+                <>
+                <NameEdit defaultValue={userInfo.name} onChange={handleChangeInfo} name='name'></NameEdit>
+                <Hr />
+                </>
+                <>
+                <InformationText>
+                    email
+                    <Information>{userInfo.email}</Information>
+                </InformationText>
+                </>
+                <>
+                <InformationText>
+                    age<br/>
+                    <AgeEdit type="number" defaultValue={userInfo.age} onChange={handleChangeInfo} name='age'/>
+                </InformationText>
+                </>
+                <>
+                
+                <EditButton onClick={editFetch}>
+                    <EditImage src={checkImg} />
+                </EditButton>
+                
+                </>
+            </InformationBox>
+            
+            </InformationContainer>
         </div>
 
     )

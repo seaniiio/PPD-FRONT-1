@@ -9,14 +9,15 @@ import {TextInput, TextInputContainer} from '../components/Input'
 import Walking from '../images/walking.gif'
 
 // In-Platform
-const Center = styled.div `
+export const Center = styled.div `
   display: inline-block;
   font-size: 40px;
   margin-bottom: 10px;
   position: relative;
   top: 40px;
+
 `
-const Image = styled.img `
+export const Image = styled.img `
   width: 200px;
   height: 200px;
   position: relative;
@@ -110,8 +111,6 @@ function FirstPage() {
   return (
     <div>
       <Top state="invisible" />
-
-      
 
       <div style={{'textAlign': 'center'}}>
         <Center>
