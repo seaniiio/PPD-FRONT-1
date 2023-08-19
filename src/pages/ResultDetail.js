@@ -16,53 +16,8 @@ const GraphSpace = styled.div`
     margin-top: 90px;
 `
 
-const testData = 
-    {
-        result : 0,
-        normalValues : [
-            1.5,
-            2.5,
-            2,
-            4,
-            1,
-            3.3
-        ],
-        abnormalValues : [
-            3,
-            6,
-            4,
-            1,
-            3,
-            1
-        ],
-        actualValues : [
-            2,
-            2.6,
-            3,
-            6,
-            2.5,
-            2.5
-        ],
-        resultTypes : [
-            0,
-            0,
-            1,
-            0,
-            1,
-            0
-        ]
-    }
 const dataList = ['보행 속도', '발목 사이 거리', '무릎 사이 거리', '무릎 각도', '팔꿈치 각도', '허리 각도']
 
-// 퍼센트로 바꿔서 배열로 return
-const toPercent = (e) => {
-    const actual = testData.actualValues[e];
-    const normal = testData.normalValues[e];
-    const abnormal = testData.abnormalValues[e];
-    const max = Math.max(actual, normal, abnormal);
-
-    return [(normal / max) * 100, (actual / max) * 100, (abnormal / max) * 100]
-}
 
 const chart = {
     options: {
@@ -101,23 +56,36 @@ const chart = {
     }
 }
 
-function description(idx) {
-    if(testData.resultTypes[idx] === 0) {
-        return '수치가 정상 평균에 가깝습니다.'
-    }
-    else if(testData.actualValues[idx] > testData.normalValues[idx]) {
-        return '수치가 정상 평균보다 높습니다.'
-    }
-    else {
-        return '수치가 정상 평균보다 낮습니다.'
-    }
-}
+
 
 
 function ResultDetail() {
-    //const location = useLocation()
-    //const record = location.state.record;
-    //const idx_ = location.state.idx_;
+    const location = useLocation()
+    const record = location.state.record;
+    const idx_ = location.state.idx_;
+
+    // 퍼센트로 바꿔서 배열로 return
+    const toPercent = (e) => {
+        const actual = record.actualValues[e];
+        const normal = record.normalValues[e];
+        const abnormal = record.abnormalValues[e];
+        const max = Math.max(actual, normal, abnormal);
+
+        return [(normal / max) * 100, (actual / max) * 100, (abnormal / max) * 100]
+    }
+
+    function description(idx) {
+        if(record.resultTypes[idx] === 0) {
+            return '수치가 정상 평균에 가깝습니다.'
+        }
+        else if(record.actualValues[idx] > record.normalValues[idx]) {
+            return '수치가 정상 평균보다 높습니다.'
+        }
+        else {
+            return '수치가 정상 평균보다 낮습니다.'
+        }
+    }
+
 
     return (
         <div>
@@ -126,7 +94,7 @@ function ResultDetail() {
             <GraphSpace>
                 <ReactApexChart 
                     options={chart.options}
-                    series={toPercent(1)}
+                    series={toPercent(idx_)}
                     type="radialBar" 
                     width="420"
                     style={{"display":"inline-block"}}
@@ -135,14 +103,14 @@ function ResultDetail() {
 
             <div style={{"text-align": "center"}}>
                 <span 
-                    class={testData.resultTypes[1] === 0 ? 
+                    class={record.resultTypes[idx_] === 0 ? 
                     "normalhighlight" :"abnormalhighlight"}
                     style={{"font-size":"30px"}}>
-                {dataList[1]}</span>
+                {dataList[idx_]}</span>
             </div>
 
             <div class="descript">
-                {description(1)}
+                {description(idx_)}
             </div>
             
             <div class="label">
