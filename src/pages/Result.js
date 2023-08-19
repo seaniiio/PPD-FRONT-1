@@ -78,7 +78,7 @@ function Result() {
             console.log(response);
         })
     }
-    
+
   return (
     <>
       <Top state="visible" text="분석결과" home="true"></Top>
@@ -105,8 +105,8 @@ function Result() {
         <SaveButton onClick={saveRecord}>기록 저장하기</SaveButton>
       </>
 
-      <StyledLink data={record}
-        to={record.resultTypes[0] === 1 ? '/ResultDetail' : undefined}
+      <StyledLink state={{record: record, idx_: 0}}
+        to={record.resultTypes[0] === 1 ? `/ResultDetail` : undefined}
       >
         <FeatureResult
           result={record.resultTypes[0] === 1 ? 'abnormal' : undefined}
@@ -114,7 +114,7 @@ function Result() {
           속도
         </FeatureResult>
       </StyledLink>
-      <StyledLink data={record}
+      <StyledLink state={{record: record, idx_: 1}}
         to={record.resultTypes[1] === 1 ? '/ResultDetail' : undefined}
       >
         <FeatureResult
@@ -123,7 +123,7 @@ function Result() {
           발목 사이 거리
         </FeatureResult>
       </StyledLink>
-      <StyledLink data={record}
+      <StyledLink state={{record: record, idx_: 2}}
         to={record.resultTypes[2] === 1 ? '/ResultDetail' : undefined}
       >
         <FeatureResult
@@ -132,7 +132,7 @@ function Result() {
           무릎 사이 거리
         </FeatureResult>
       </StyledLink>
-      <StyledLink data={record}
+      <StyledLink state={{record: record, idx_: 3}}
         to={record.resultTypes[3] === 1 ? '/ResultDetail' : undefined}
       >
         <FeatureResult
@@ -141,7 +141,7 @@ function Result() {
           무릎 각도
         </FeatureResult>
       </StyledLink>
-      <StyledLink data={record}
+      <StyledLink state={{record: record, idx_: 4}}
         to={record.resultTypes[4] === 1 ? '/ResultDetail' : undefined}
       >
         <FeatureResult
@@ -150,7 +150,7 @@ function Result() {
           팔꿈치 각도
         </FeatureResult>
       </StyledLink>
-      <StyledLink data={record}
+      <StyledLink state={{record: record, idx_: 5}}
         to={record.resultTypes[5] === 1 ? '/ResultDetail' : undefined}
       >
         <FeatureResult

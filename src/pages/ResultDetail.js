@@ -12,10 +12,8 @@ import '../styles/Graph.css'
 
 
 const GraphSpace = styled.div`
-    display: inline-block;
-    width: 190px;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 90px;
 `
 
 const testData = 
@@ -54,6 +52,7 @@ const testData =
             0
         ]
     }
+const dataList = ['보행 속도', '발목 사이 거리', '무릎 사이 거리', '무릎 각도', '팔꿈치 각도', '허리 각도']
 
 // 퍼센트로 바꿔서 배열로 return
 const toPercent = (e) => {
@@ -102,88 +101,56 @@ const chart = {
     }
 }
 
+function description(idx) {
+    if(testData.resultTypes[idx] === 0) {
+        return '수치가 정상 평균에 가깝습니다.'
+    }
+    else if(testData.actualValues[idx] > testData.normalValues[idx]) {
+        return '수치가 정상 평균보다 높습니다.'
+    }
+    else {
+        return '수치가 정상 평균보다 낮습니다.'
+    }
+}
+
 
 function ResultDetail() {
     //const location = useLocation()
+    //const record = location.state.record;
+    //const idx_ = location.state.idx_;
 
     return (
         <div>
-            <Top state='visible' text="분석결과" home="true" back="true"></Top>
+            <Top state='visible' text="상세결과" home="true" back="true"></Top>
 
             <GraphSpace>
-                <ReactApexChart 
-                    options={chart.options}
-                    series={toPercent(0)}
-                    type="radialBar" 
-                    width="210"
-                />
-                <span class={testData.resultTypes[0] === 0 ? 
-                "normalhighlight" :"abnormalhighlight"}>보행 속도</span>
-            </GraphSpace>
-
-            <GraphSpace>  
                 <ReactApexChart 
                     options={chart.options}
                     series={toPercent(1)}
                     type="radialBar" 
-                    width="210"
+                    width="420"
+                    style={{"display":"inline-block"}}
                 />
-                <span class={testData.resultTypes[1] === 0 ? 
-                "normalhighlight" :"abnormalhighlight"}>발목 사이 거리</span>
             </GraphSpace>
 
-            <GraphSpace>
-                <ReactApexChart 
-                    options={chart.options}
-                    series={toPercent(2)}
-                    type="radialBar" 
-                    width="210"
-                />
-                <span class={testData.resultTypes[2] === 0 ? 
-                "normalhighlight" :"abnormalhighlight"}>무릎 사이 거리</span>
-            </GraphSpace>
+            <div style={{"text-align": "center"}}>
+                <span 
+                    class={testData.resultTypes[1] === 0 ? 
+                    "normalhighlight" :"abnormalhighlight"}
+                    style={{"font-size":"30px"}}>
+                {dataList[1]}</span>
+            </div>
 
-            <GraphSpace>
-                <ReactApexChart 
-                    options={chart.options}
-                    series={toPercent(3)}
-                    type="radialBar" 
-                    width="210"
-                />
-                <span class={testData.resultTypes[3] === 0 ? 
-                "normalhighlight" :"abnormalhighlight"}>무릎 각도</span>
-            </GraphSpace>
-
-            <GraphSpace>
-                <ReactApexChart 
-                    options={chart.options}
-                    series={toPercent(4)}
-                    type="radialBar" 
-                    width="210"
-                />  
-                <span class={testData.resultTypes[4] === 0 ? 
-                "normalhighlight" :"abnormalhighlight"}>팔꿈치 각도</span>
-            </GraphSpace>
-
-            <GraphSpace>
-                <ReactApexChart 
-                    options={chart.options}
-                    series={toPercent(5)}
-                    type="radialBar" 
-                    width="210"
-                />
-                <span class={testData.resultTypes[5] === 0 ? 
-                "normalhighlight" :"abnormalhighlight"}>허리 각도</span>
-            </GraphSpace>
+            <div class="descript">
+                {description(1)}
+            </div>
             
             <div class="label">
-
-                    <span class="normalhighlight">정상 평균</span>
-                    <br/>
-                    <span class="abnormalhighlight">병적 평균</span>
-                    <br/>
-                    <span class="myhighlight">나의 결음 분석 결과</span>
-
+                <span class="normalhighlight">정상 평균</span>
+                <br/>
+                <span class="abnormalhighlight">병적 평균</span>
+                <br/>
+                <span class="myhighlight">나의 결음 분석 결과</span>
             </div>
 
         </div>
