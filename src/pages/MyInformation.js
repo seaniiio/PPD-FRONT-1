@@ -21,7 +21,7 @@ export const ShowInformation = styled.div`
   padding: 6px;
 `
 
-const InformationContainer = styled.div `
+export const InformationContainer = styled.div `
   display: flex;  
   text-align: center;
   justify-content: center;
@@ -29,7 +29,7 @@ const InformationContainer = styled.div `
   margin-top: 40px;
 `
 
-const InformationBox = styled.div `
+export const InformationBox = styled.div `
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -40,26 +40,26 @@ const InformationBox = styled.div `
 `
 
 // 사람 모양 아이콘 띄우는 컴포넌트
-const PersonImageContainer = styled.div `
+export const PersonImageContainer = styled.div `
   width: 220px;
   height: 220px;
   border-radius: 50%;
   background-color: white;
   margin-top: 30px;
 `
-const PersonImage = styled.img `
+export const PersonImage = styled.img `
   width: 220px;
   height: 220px;
 `
 // 이름
-const NameContainer = styled.div `
+export const NameContainer = styled.div `
   color: white;
   font-size: 30px;
   font-weight: bolder;
   margin-top: 30px;
 `
 // 이름 밑 horizen
-const Hr = styled.hr `
+export const Hr = styled.hr `
   background-color: #e0dee0;
   width: 220px;
   height: 3px;
@@ -68,20 +68,20 @@ const Hr = styled.hr `
 `
 
 // 이메일, 나이 
-const InformationText = styled.div `
+export const InformationText = styled.div `
   font-size: 30px;
   color: white;
   font-weight: bolder;
   margin-top: 20px;
 `
-const Information = styled.div `
+export const Information = styled.div `
   font-size: 20px;
   color: white;
   margin-top: 4px;
 `
 
 //정보 수정 버튼
-const EditButton = styled.div `
+export const EditButton = styled.div `
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -91,7 +91,7 @@ const EditButton = styled.div `
   justify-content: center;
   align-items: center;
 `
-const EditImage = styled.img `
+export const EditImage = styled.img `
   width: 40px;
   height: 40px;
 `
@@ -123,7 +123,8 @@ function MyInformation() {
   }, []) // 빈 배열을 넣어 이 효과가 초기 렌더링 후에 한 번만 실행되도록 한다
 
   const infoFetch = () => {
-    fetch('http://13.125.209.54:8080/api/user/me', {
+    //'http://13.125.209.54:8080/api/user/me'
+    fetch('http://localhost:8080/api/user/me', {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('access_token'),
@@ -148,23 +149,23 @@ function MyInformation() {
             </PersonImageContainer>
           </>
           <>
-            <NameContainer>김시원</NameContainer>
+            <NameContainer>{userInfo.name}</NameContainer>
             <Hr />
           </>
           <>
             <InformationText>
               email
-              <Information>ppd@test</Information>
+              <Information>{userInfo.email}</Information>
             </InformationText>
           </>
           <>
             <InformationText>
               age
-              <Information>12</Information>
+              <Information>{userInfo.age}</Information>
             </InformationText>
           </>
           <>
-            <Link to="/EditInfo" state={{ record: userInfo }}>
+            <Link to="/EditInfo" state={{ userInfo: userInfo }}>
               <EditButton>
                 <EditImage src={editImg} />
               </EditButton>

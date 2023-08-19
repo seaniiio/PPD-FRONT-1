@@ -16,7 +16,7 @@ export const BlueButtonContainer = styled.div `
 
 export const BlueButton = styled.button `
   display: flex;
-  background-color: #4550f5;
+  background-color: #13366e;
   width: 250px;
   height: 50px;
   border-radius: 14px;
@@ -28,7 +28,7 @@ export const BlueButton = styled.button `
   border: none;
   transition: .2s ease-in-out,box-shadow .2s ease-in-out;
   &:hover{
-    background-color:#01086e;
+    background-color:#4550f5;
   }
 `
 
