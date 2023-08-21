@@ -301,9 +301,6 @@ function Record() {
           <video className="user-video" ref={videoTagRef} autoPlay muted></video>
           <div className="red-box"></div>
           <button onClick={StartRecording}>촬영</button>
-          <Link to="/Loading">
-              <button onClick={VideoCaptureEnd}>종료</button>
-          </Link>
           <input
               ref={inputRef}
               type="file"
