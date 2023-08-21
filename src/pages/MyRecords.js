@@ -59,7 +59,8 @@ function MyRecords() {
   // token을 이용해서 요청을 보내기 위해 axios를 사용한다
   // 토큰이 필요한 api요청을 보내는 axios인스턴스
   const recordAxios = axios.create({
-    baseURL: 'http://13.125.209.54:8080/api',
+    //http://13.125.209.54:8080/api
+    baseURL: 'http://localhost:8080/api',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('access_token')}`,
     },

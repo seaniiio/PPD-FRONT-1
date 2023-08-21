@@ -172,13 +172,13 @@ function Record() {
       // 삐 소리
       handleBeepSound()
       VideoCaptureStart() // VideoCaptureStart() 함수 호출
-    }, 1000) // 10초 (10000 밀리초) 후에 실행
+    }, 10000) // 10초 (10000 밀리초) 후에 실행
 
     setTimeout(() => {
       // 삐 소리
       handleBeepSound()
       VideoCaptureEnd() // VideoCaptureEnd() 함수 호출
-    }, 4000) // 20초 (20000 밀리초) 후에 촬영 종료
+    }, 17000) // 20초 (20000 밀리초) 후에 촬영 종료
   }
 
   return (
