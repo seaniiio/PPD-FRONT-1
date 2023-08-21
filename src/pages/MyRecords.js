@@ -80,54 +80,7 @@ function MyRecords() {
       console.error('Error fetching records:', error)
     }
   }
-  //refresh token api
-  async function postRefreshToken() {
-    const response = await recordAxios.post('/auth/refresh', {
-      refreshToken: localStorage.getItem('refresh_token'),
-    })
-    return response
-  }
   
-  // 토큰의 유효성을 검사하기 위해 intereptor 사용
-  recordAxios.interceptors.response.use(
-    // 200번대 응답이 올때 처리(정상적인 응답일 때)
-    response => {
-      return response
-    },
-    // 200번대 응답이 아닐 경우 처리
-    async error => {
-      const {
-        config, // 기존에 수행하려 했던 작업
-        response: { status }, //
-      } = error
-
-      // 토큰이 만료되을 때
-      if (status === 401) {
-        // 토큰이 만료된 경우의 조건을 넣기
-        if (error.response.data.message === 'Unauthorized') {
-          const originRequest = config
-          //리프레시 토큰 api
-          const response = await postRefreshToken()
-          //리프레시 토큰 요청이 성공할 때
-          if (response.status === 200) {
-            const newAccessToken = response.data.token 
-            localStorage.setItem('access_token', response.data.token) 
-            localStorage.setItem('refresh_token', response.data.refreshToken) 
-            axios.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`
-            //진행중이던 요청 이어서하기
-            originRequest.headers.Authorization = `Bearer ${newAccessToken}`
-            return axios(originRequest)
-            //리프레시 토큰 요청이 실패할때(리프레시 토큰도 만료되었을때 = 재로그인 안내)
-          } else if (response.status === 404) {
-            window.location.replace('/sign-in')
-          } else {
-            //alert(LOGIN.MESSAGE.ETC);
-          }
-        }
-      }
-      return Promise.reject(error)
-    }
-  )
 
   // Function to delete a record
   const deleteRecord = async recordIdx => {
