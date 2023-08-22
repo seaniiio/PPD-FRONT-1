@@ -27,9 +27,7 @@ const FeatureResult = styled.div`
   font-size: 30px;
   ${props =>
     props.result === 'abnormal' &&
-    `
-        background-color: #ffd6e5;
-    `}
+    ` background-color: #ffd6e5;`}
 `
 
 export const ShowInformation = styled.div`
@@ -65,7 +63,8 @@ function Result() {
   
   // 기록 서버에 저장
   const saveRecord = () => {
-    fetch('http://13.125.209.54:8080/api/joint/new', {
+    //http://13.125.209.54:8080/api/joint/new
+    fetch('http://localhost:8080/api/joint/new', {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`,
@@ -107,8 +106,8 @@ function Result() {
         <SaveButton onClick={saveRecord}>기록 저장하기</SaveButton>
       </>
 
-      <StyledLink
-        to={record.resultTypes[0] === 1 ? '/ResultDetail' : undefined}
+      <StyledLink state={{record: record, idx_: 0}}
+        to='/ResultDetail'
       >
         <FeatureResult
           result={record.resultTypes[0] === 1 ? 'abnormal' : undefined}
@@ -116,8 +115,8 @@ function Result() {
           속도
         </FeatureResult>
       </StyledLink>
-      <StyledLink
-        to={record.resultTypes[1] === 1 ? '/ResultDetail' : undefined}
+      <StyledLink state={{record: record, idx_: 1}}
+        to='/ResultDetail'
       >
         <FeatureResult
           result={record.resultTypes[1] === 1 ? 'abnormal' : undefined}
@@ -125,8 +124,8 @@ function Result() {
           발목 사이 거리
         </FeatureResult>
       </StyledLink>
-      <StyledLink
-        to={record.resultTypes[2] === 1 ? '/ResultDetail' : undefined}
+      <StyledLink state={{record: record, idx_: 2}}
+        to='/ResultDetail'
       >
         <FeatureResult
           result={record.resultTypes[2] === 1 ? 'abnormal' : undefined}
@@ -134,8 +133,8 @@ function Result() {
           무릎 사이 거리
         </FeatureResult>
       </StyledLink>
-      <StyledLink
-        to={record.resultTypes[3] === 1 ? '/ResultDetail' : undefined}
+      <StyledLink state={{record: record, idx_: 3}}
+        to='/ResultDetail'
       >
         <FeatureResult
           result={record.resultTypes[3] === 1 ? 'abnormal' : undefined}
@@ -143,8 +142,8 @@ function Result() {
           무릎 각도
         </FeatureResult>
       </StyledLink>
-      <StyledLink
-        to={record.resultTypes[4] === 1 ? '/ResultDetail' : undefined}
+      <StyledLink state={{record: record, idx_: 4}}
+        to='/ResultDetail'
       >
         <FeatureResult
           result={record.resultTypes[4] === 1 ? 'abnormal' : undefined}
@@ -152,8 +151,8 @@ function Result() {
           팔꿈치 각도
         </FeatureResult>
       </StyledLink>
-      <StyledLink
-        to={record.resultTypes[5] === 1 ? '/ResultDetail' : undefined}
+      <StyledLink state={{record: record, idx_: 5}}
+        to='/ResultDetail'
       >
         <FeatureResult
           result={record.resultTypes[5] === 1 ? 'abnormal' : undefined}

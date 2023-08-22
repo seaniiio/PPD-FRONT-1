@@ -1,16 +1,27 @@
 import '../App.css';
 import Top from '../components/Top'
-import Button from '../components/Button'
-import Center from '../components/Center'
 import {JoinModal} from '../components/Modal'
-import {Link} from 'react-router-dom'
-import {memo, useState} from 'react';
+import {useState} from 'react';
 import styled from 'styled-components';
-import '../styles/DivButton.css';
+import {BlueButton, BlueButtonContainer} from '../components/Button'
+import { TextInput, TextInputContainer } from '../components/Input';
 
+// In-Platform
+const Logo = styled.div `
+  font-size: 40px;
+  text-align: center;
+  height: 100px;
+  margin-top: 150px;
 
+`
+// 가입하기 버튼
+const JoinButton = styled(BlueButton) `
+  margin: 30px;
+`
+const JoinInput = styled(TextInput) `
+  margin: 4px;
+`
 
-//글자는 수직정렬
 export const InformationText = styled.span `
   font-size:30px;
   font-weight:bolder;
@@ -28,32 +39,25 @@ export const InputInformation = styled.input `
      font: normal 62.5% "Lucida Sans Unicode",sans-serif;
     `}
 `
-// 이메일 입력칸
-const InputInformationSmall = styled(InputInformation) `
-  width:100px;
-`
-const InputEmail = styled(InputInformation) `
-  position: absolute;
-  font-size:18px;
-  left: 64%;
-  width:100px;
-  text-align: center;
-  border: 1px solid black;
 
-`
-
-//개인정보 활용 동의 스크롤 창
+//개인정보 활용 동의 창
 const TextContainer = styled.div `
   margin: auto;
+  margin-top: 40px;
   text-align:center;
   top:20px;
   overflow:scroll;
   width:300px;
-  height:250px;
-  border: 1px solid black;
+  height:30px;
+  border: 1px solid;
+  border-radius: 4px;
+  color: #4a4a4a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
-//코드 긁어왔습니다..
+// 체크박스
 const CheckBoxInput = styled.input `
   appearance: none; 
   width: 20px;
@@ -62,7 +66,6 @@ const CheckBoxInput = styled.input `
   position: absolute;
   right: 70px;
   bottom: 0px;
-  
 
   &:checked {
     border-color: transparent;
@@ -73,6 +76,7 @@ const CheckBoxInput = styled.input `
     background-color: blue;
   }
 `
+
 //이름~나이까지의 Information component를 포함하는 container
 export const InformationContainer = styled.div `
   position: relative;
@@ -90,23 +94,7 @@ const CheckboxContainer = styled.div `
 `
 
 function JoinMembership(){
-
-  /*
-  const [user, setUser] = useState({
-    created_date: Date(),
-    last_modified_date: Date(),
-    age: 0,
-    email: '',
-    gender: 'none',
-    info: 'agree',
-    last_login_date: Date(),
-    name: '',
-    password: '',
-    role_type: 'normal',
-    status: 'leave'
-  });
-  */
-  
+  // 회원 정보를 담는 state
   const [user, setUser] = useState({
     name: '',
     age: 0,
@@ -114,6 +102,7 @@ function JoinMembership(){
     password: '',
   });
 
+  // 정보 입력 시(onChange) 실행
   const handleChange = (e) => {
     setUser({
       ...user,
@@ -121,20 +110,13 @@ function JoinMembership(){
     })
   }
 
+  // 정보 활용 동의 여부에 대한 state
   const [agree, setAgree] = useState(false);
+
   const handleChangeAgree = (e) => {
     console.log(e.target.checked);
-    if(e.target.checked) {
-      setAgree(true);
-    }
+    setAgree(e.target.checked);
   }
-
-  const emailList = ["@naver.com", '@daum.net', '@gmail.com', '@nate.com', '직접입력'];
-  const [Selected, setSelected] = useState("");
-
-  const handleSelect = (e) => {
-    setSelected(e.target.value);
-  };
 
   // 가입완료 모달창에 대한 상태변수
   const [modalOpen, setModalOpen] = useState(false);
@@ -160,12 +142,12 @@ function JoinMembership(){
       alert("공백은 포함될 수 없습니다")
       return;
     }
-    /*
+    
     if(!agree) {
       alert("개인정보 활용에 동의해주세요.")
       return;
     }
-    */
+    
 
    fetch('http://13.125.209.54:8080/api/auth/signup', {
       method:"POST",
@@ -175,7 +157,6 @@ function JoinMembership(){
        },
       body: JSON.stringify(user),
     })
-
     .then((response) => response.json())
     .then((response) => {
       if (response.status === 'OK') {
@@ -187,39 +168,48 @@ function JoinMembership(){
         alert('회원가입 실패!')
       }
     })
-  };
+  }
 
   return (
   <div>
-    <Top state='visible' text='회원가입'></Top>
-    <p><InformationText>이름<InputInformation name="name" onChange={handleChange}></InputInformation></InformationText></p>
-    <p><InformationText>이메일<InputInformation name="email" onChange={handleChange}></InputInformation>
-    {/*}
-    {Selected === '직접입력' ? 
-    <><span className="showAt">@</span><InputEmail />
-    {*/}
-    {/* showAt은 DivButton.css에 정의 */}
-    {/*}
-    :
-    <select className="selectEmail" onChange={handleSelect} value={Selected}>
-      {emailList.map((item) => (
-        <option value={item} key={item}>
-          {item}
-        </option>
-      ))}
-    </select>
-    }
-    {*/}
+    <Logo><p style={{}}>𝓘𝓷-𝓟𝓵𝓪𝓽𝓯𝓸𝓻𝓶</p></Logo>
 
 
-    </InformationText></p>
-    <p><InformationText>비밀번호<InputInformation type='password' name="password" onChange = {handleChange}></InputInformation></InformationText></p>
-    <p><InformationText>나이<InputInformation name="age" onChange={handleChange} type="number"></InputInformation></InformationText></p>
-    <TextContainer> 개인정보 활용 동의 내용~~~ </TextContainer>
-    <CheckboxContainer><div className="agreeText">동의</div><CheckBoxInput name = "agree" type="checkbox" onClick={handleChangeAgree}></CheckBoxInput></CheckboxContainer>
-    <p><div className="buttonDiv"><p className="buttonDivText" onClick={joinFetch}>가입하기</p></div></p>
+      <TextInputContainer>
+        <JoinInput name="name" onChange={handleChange} placeholder="𝒏𝒂𝒎𝒆"/>
+      </TextInputContainer>
+
+      <TextInputContainer>
+        <JoinInput name="email" onChange={handleChange} placeholder="𝒆𝒎𝒂𝒊𝒍"/>
+      </TextInputContainer>
+
+      <TextInputContainer>
+        <JoinInput type='password' name="password" onChange = {handleChange} placeholder="𝒑𝒂𝒔𝒔𝒘𝒐𝒓𝒅"/>
+      </TextInputContainer>
+
+      <TextInputContainer>
+        <JoinInput name="age" onChange={handleChange} type="number" placeholder="𝒂𝒈𝒆"/>
+        </TextInputContainer>
+
+    <TextContainer> 
+      <p>정보 및 데이터가 활용되는 것에 동의합니다.</p>
+    </TextContainer>
+
+    <CheckboxContainer>
+      <div className="agreeText">동의</div>
+      <CheckBoxInput name = "agree" type="checkbox" onClick={handleChangeAgree}></CheckBoxInput>
+    </CheckboxContainer>
     
-    {modalOpen ? <JoinModal header="가입이 완료되었습니다" open={modalOpen} cloas={closeModal}></JoinModal> : null}
+
+    <BlueButtonContainer>  
+        <JoinButton onClick={joinFetch}>
+          가입하기
+        </JoinButton>
+      </BlueButtonContainer>
+    
+    {modalOpen ? 
+      <JoinModal header="가입이 완료되었습니다" open={modalOpen} cloas={closeModal}></JoinModal> : null}
+
   </div>
   )
 }
