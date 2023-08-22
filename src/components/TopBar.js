@@ -11,6 +11,7 @@ export const TopContainer = styled.div `
   text-align: center;
   justify-content: center;
   align-items: center;
+  border: none;
 `
 export const Top = styled.div `
   display: inline-block;
