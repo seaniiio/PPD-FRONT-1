@@ -13,10 +13,10 @@ object-fit: cover;
 
 .red-box {
   position: absolute;
-  width: 80%;
+  width: 75%;
   height: 80%;
   top: 50%;
-  left: 50%;
+  left: 42%;
   transform: translate(-50%, -50%);
   border: 2px solid red;
   box-sizing: border-box; /* 테두리를 포함하여 요소 크기 설정 */

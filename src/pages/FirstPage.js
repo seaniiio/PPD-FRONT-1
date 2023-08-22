@@ -6,7 +6,7 @@ import React from 'react'
 import { useState } from 'react'
 import {BlueButton, BlueButtonContainer} from '../components/Button'
 import {TextInput, TextInputContainer} from '../components/Input'
-import Walking from '../images/walking.gif'
+import Walking from '../images/walking_image.png'
 
 // In-Platform
 export const Center = styled.div `
@@ -84,7 +84,8 @@ function FirstPage() {
   function loginFetch() {
     // 백엔드와의 통신을 위한 fetch함수 사용
     let item = { email, password }
-    fetch('http://13.125.209.54:8080/api/auth/login', {
+    //'http://13.125.209.54:8080/api/auth/login'
+    fetch('http://localhost:8080/api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
