@@ -8,50 +8,50 @@ import {Link, useNavigate} from 'react-router-dom'
 import {useState, useEffect, useRef} from 'react';
 import styled from 'styled-components';
 import sound from '../sound/beep.mp3';
+import Walking from '../images/walking_image.png'
 
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  
+`;
+
+const StyledButton = styled.button`
+  background-color: skyblue;
+  border: none;
+  border-radius: 10px;
+  padding: 60px 130px;
+  margin: 30px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+`;
+
+const LargerButton = styled(StyledButton)`
+  height: 138px; 
+  padding: 75px 145px;
+`;
+
+function isMobileDevice() {
+  return window.innerWidth <= 768; // 예시로 최대 픽셀 너비를 768로 설정
+}
 
 function Record() {
+    const navigate_normal = useNavigate();
+    const navigate_abnormal = useNavigate();
+    const navigate_record = useNavigate();
+    const navigate = useNavigate();
     const videoTagRef = useRef(null);
     let videoMediaStream = null;
     const inputRef = useRef(null);
-    const [videoBlob, setVideoBlob] = useState(null);
-    const [recordedVideoURL, setRecordedVideoURL] = useState('');
+    const [videoBlob] = useState(null);
+    const [recordedVideoURL] = useState('');
 
 
     let videoRecorder = null;
-    // let recordedVideoURL = null;
-    // let videoBlob = null;
-    let recordedVideoBlob = null; // 녹화된 동영상 데이터
-
-    const startRecordingSavedVideo = () => {
-      if (recordedVideoURL) {
-        const stream = videoTagRef.current.captureStream();
-        videoRecorder = new MediaRecorder(stream, {
-          mimeType: "video/webm; codecs=vp9",
-        });
-
-        const recordedData = [];
-        videoRecorder.ondataavailable = (event) => {
-          if (event.data?.size > 0) {
-            recordedData.push(event.data);
-          }
-        };
-
-        videoRecorder.onstop = () => {
-          recordedVideoBlob = new Blob(recordedData, { type: "video/webm" });
-        };
-
-        videoRecorder.start();
-      }
-    };
-
-    const stopRecordingSavedVideo = () => {
-      if (videoRecorder) {
-        videoRecorder.stop();
-        videoRecorder = null;
-      }
-    };
-
 
     useEffect(() => {
         const getVideoStream = async () => {
@@ -84,70 +84,91 @@ function Record() {
         };
     }, []);
 
-    const handleUpload = async () => {
-      if (recordedVideoBlob) { // videoBlob이 존재할 때만 실행
-          try {
-              let formData = new FormData();
-  
-              let fname = new Date().toString() + ".mp4";
-              let f = new File([videoBlob], fname);
-              console.log("f:", f);
-  
-              formData.append("type", "video/webm");
-              formData.append("name", fname);
-              formData.append("file", f);
-              formData.append("file", recordedVideoBlob);
-              formData.append("url", recordedVideoURL);
-              console.log("url:", recordedVideoURL);
-  
-              // fast api 서버
-              let response = await fetch('http://13.125.209.54:8000/video', {
-                  method: 'POST',
-                  headers: {
-                      // 'Content-Type': 'multipart/form-data' // 필요한 경우 헤더 설정
-                  },
-                  body: formData,
-              });
-              
-              console.log('Video uploaded successfully');
-  
+    // 모바일 디바이스에서 실행
+    if (isMobileDevice()) {
+      
+      const uploadVideo = async (file) => {
+        try {
+          let formData = new FormData();    
+          let fname = new Date().toString() + ".mp4";
+          let f = new File([file], fname);
+          console.log("f:", f);
+      
+          formData.append("type", "video/webm");
+          formData.append("name", fname);
+          formData.append("file", f);
+      
+          // 서버에서 파일을 식별할 고유한 이름 생성
+          const fileName = new Date().toISOString() + '.mp4';
 
-              let responseData = await response.json();
-              console.log(responseData)
-
-              // 종합 결과 0->정상 1->비정상
-              let result = responseData[0];
-              // 종합 결과가 정상일 시, 정상 판별하는 페이지로 이동
-              if(result === 0) {
-                navigate_normal('/Normal');
-              }
-              // 종합 결과가 비정상일 시, 비정상 판별하는 페이지로 이동
-              else if(result === 1) {
-                navigate_abnormal('/Abnormal');
-              }
-
-              // 분석 상세 결과 출력
-              let resultArray = responseData[responseData.length - 1];
-              // 다른 페이지에서 사용하기 위해 localStorage에 저장
-              localStorage.setItem('result', JSON.stringify(result));
-              localStorage.setItem('resultArray', JSON.stringify(resultArray));
-
-              console.log("속도:", resultArray[0]);
-              console.log("발목 사이 거리:", resultArray[1]);
-              console.log("무릎 사이 거리:", resultArray[2]);
-              console.log("무릎 각도:", resultArray[3]);
-              console.log("팔꿈치 각도:", resultArray[4]);
-              console.log("허리 각도:", resultArray[5]);  
-              
-
-            } catch (error) {
-              console.error('Error uploading video:', error);
-              alert('걸음이 인식되지 않았습니다. 다시 시도해주세요')
-              navigate_record('./')
-            }
-            } 
-  };
+          // 서버 업로드 URL에 POST 요청을 보냄
+          const response = await fetch('http://13.125.209.54:8000/video', {
+            method: 'POST',
+            headers: {//'Content-Type': 'multipart/form-data'
+            },
+            body: formData,
+          });
+      
+          // 업로드 완료 후 서버 응답 처리
+          console.log('Video uploaded successfully', response);
+           // post -> response 데이터 받아옴
+           const responseData = await response.json()
+           console.log(responseData)
+      
+           // 종합 결과 0->정상 1->비정상
+           const result = responseData.result
+           // 종합 결과가 정상일 시, 정상 판별하는 페이지로 이동
+           if (result === 0) {
+             navigate_normal('/Normal', { state: { record: responseData } }) // 객체 전달
+           }
+           // 종합 결과가 비정상일 시, 비정상 판별하는 페이지로 이동
+           else if (result === 1) {
+             navigate_abnormal('/Abnormal', { state: { record: responseData } })
+           }
+      
+         } catch (error) {
+          console.error('Error uploading video:', error);
+          alert('걸음이 인식되지 않았습니다. 다시 시도해주세요')
+          navigate_record('./')
+        }
+      };
+      const mobileTTS = () => {
+        const message = "촬영버튼을 누르고, 핸드폰을 가로로 위치한 후, 다섯 발자국 이상 걸어주세요."; // 재생할 메시지
+      
+        if ("speechSynthesis" in window) {
+          const speech = new SpeechSynthesisUtterance(message);
+          speech.lang = "ko-KR"; // 한국어로 설정, 필요에 따라 조정할 수 있습니다.
+          speech.rate = 0.85; // 음성 속도를 느리게 설정
   
+          speechSynthesis.speak(speech);
+        } else {
+          console.error("이 브라우저에서는 SpeechSynthesis를 지원하지 않습니다.");
+        }
+      };
+      return (
+        <ButtonContainer>
+           <input
+              ref={inputRef}
+              type="file"
+              accept="video/*"
+              capture="camera"
+              style={{ display: 'none' }}
+              onChange={(event) => {
+                  const file = event.target.files[0];
+                  if (file) {
+                      uploadVideo(file);
+                  }
+              }}
+          />
+          {recordedVideoURL && <video controls src={recordedVideoURL} />}
+          <LargerButton onClick={() => inputRef.current.click()}>촬영</LargerButton>
+          <StyledButton onClick={mobileTTS}>안내음성</StyledButton>
+          <Link to="/Loading">
+              <StyledButton onClick={uploadVideo}>결과확인</StyledButton>
+          </Link>
+        </ButtonContainer>
+      );
+    }
 
     // 녹화 시작
     const VideoCaptureStart = () => {
@@ -180,7 +201,6 @@ function Record() {
         }
       };
 
-    const navigate = useNavigate();
     // 5) 녹화 중지
     const VideoCaptureEnd = () => {
         if(videoRecorder){
@@ -213,10 +233,6 @@ function Record() {
       new Audio(sound).play();
     };
 
-    const navigate_normal = useNavigate();
-    const navigate_abnormal = useNavigate();
-    const navigate_record = useNavigate();
-
     // 촬영한 동영상을 FAST API로 넘기기
     const videoFetch = async () => {
       try {
@@ -242,84 +258,55 @@ function Record() {
         })
         console.log('Video uploaded successfully');
         
-        // post -> response 데이터 받아옴
-        let responseData = await response.json();
-        console.log(responseData)
+         // post -> response 데이터 받아옴
+      const responseData = await response.json()
+      console.log(responseData)
 
-        // 종합 결과 0->정상 1->비정상
-        let result = responseData[0];
-        // 종합 결과가 정상일 시, 정상 판별하는 페이지로 이동
-        if(result === 0) {
-          navigate_normal('/Normal');
-        }
-        // 종합 결과가 비정상일 시, 비정상 판별하는 페이지로 이동
-        else if(result === 1) {
-          navigate_abnormal('/Abnormal');
-        }
+      // 종합 결과 0->정상 1->비정상
+      const result = responseData.result
+      // 종합 결과가 정상일 시, 정상 판별하는 페이지로 이동
+      if (result === 0) {
+        navigate_normal('/Normal', { state: { record: responseData } }) // 객체 전달
+      }
+      // 종합 결과가 비정상일 시, 비정상 판별하는 페이지로 이동
+      else if (result === 1) {
+        navigate_abnormal('/Abnormal', { state: { record: responseData } })
+      }
 
-        // 분석 상세 결과 출력
-        let resultArray = responseData[responseData.length - 1];
-        // 다른 페이지에서 사용하기 위해 localStorage에 저장
-        localStorage.setItem('result', JSON.stringify(result));
-        localStorage.setItem('resultArray', JSON.stringify(resultArray));
-
-        console.log("속도:", resultArray[0]);
-        console.log("발목 사이 거리:", resultArray[1]);
-        console.log("무릎 사이 거리:", resultArray[2]);
-        console.log("무릎 각도:", resultArray[3]);
-        console.log("팔꿈치 각도:", resultArray[4]);
-        console.log("허리 각도:", resultArray[5]);  
-        
-
-      } catch (error) {
+    }
+        catch (error) {
         console.error('Error uploading video:', error);
         alert('걸음이 인식되지 않았습니다. 다시 시도해주세요')
         navigate_record('./')
       }
     };
 
-  // 가이드 음성을 재생하고
-  // 5초 뒤에 촬영을 시작하게 하는 함수
-  const StartRecording = () => {
-    handleTTS() // handleTTS() 함수 호출
+    // 가이드 음성을 재생하고
+    // 5초 뒤에 촬영을 시작하게 하는 함수
+    const StartRecording = () => {
+      handleTTS(); // handleTTS() 함수 호출
+      
+      setTimeout(() => {
+        // 삐 소리
+        handleBeepSound();
+        VideoCaptureStart(); // VideoCaptureStart() 함수 호출
+      }, 1000); // 10초 (10000 밀리초) 후에 실행 
 
-    setTimeout(() => {
-      // 삐 소리
-      handleBeepSound()
-      VideoCaptureStart() // VideoCaptureStart() 함수 호출
-    }, 10000) // 10초 (10000 밀리초) 후에 실행
-
-    setTimeout(() => {
-      // 삐 소리
-      handleBeepSound()
-      VideoCaptureEnd() // VideoCaptureEnd() 함수 호출
-    }, 17000) // 20초 (20000 밀리초) 후에 촬영 종료
-  }
+      setTimeout(() => {
+        // 삐 소리
+        handleBeepSound();
+        VideoCaptureEnd(); // VideoCaptureEnd() 함수 호출
+      }, 4000); // 20초 (20000 밀리초) 후에 촬영 종료
+    }
 
     return (
       <div className="video-container">
           <video className="user-video" ref={videoTagRef} autoPlay muted></video>
           <div className="red-box"></div>
           <button onClick={StartRecording}>촬영</button>
-          <input
-              ref={inputRef}
-              type="file"
-              accept="video/*"
-              capture="camera"
-              style={{ display: 'none' }}
-              onChange={(event) => {
-                  const file = event.target.files[0];
-                  if (file) {
-                      setVideoBlob(file);
-                      setRecordedVideoURL(URL.createObjectURL(file));
-                  }
-              }}
-          />
-          {recordedVideoURL && <video controls src={recordedVideoURL} />}
-          <button onClick={() => inputRef.current.click()}>모바일 촬영</button>
-          <button onClick={handleUpload}>모바일동영상 업로드</button>
-          <button onClick={startRecordingSavedVideo}>녹화 시작</button>
-          <button onClick={stopRecordingSavedVideo}>녹화 중지</button>
+          <Link to="/Loading">
+              <button onClick={VideoCaptureEnd}>종료</button>
+          </Link>
       </div>
   );
 }
