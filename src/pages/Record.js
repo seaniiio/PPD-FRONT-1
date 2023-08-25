@@ -86,7 +86,8 @@ function Record() {
 
     // 모바일 디바이스에서 실행
     if (isMobileDevice()) {
-      
+      // mobileTTS();
+      // handleBeepSound();
       const uploadVideo = async (file) => {
         try {
           let formData = new FormData();    
@@ -132,19 +133,42 @@ function Record() {
           navigate_record('./')
         }
       };
+      let handleBeepSound = () => {
+        setTimeout(() => {
+          new Audio(sound).play();
+        }, 10000); 
+      };
+      
       const mobileTTS = () => {
-        const message = "촬영버튼을 누르고, 핸드폰을 가로로 위치한 후, 다섯 발자국 이상 걸어주세요."; // 재생할 메시지
+        const message = "5초 뒤, 삐 소리와 함께 촬영이 시작됩니다.";
       
         if ("speechSynthesis" in window) {
           const speech = new SpeechSynthesisUtterance(message);
           speech.lang = "ko-KR"; // 한국어로 설정, 필요에 따라 조정할 수 있습니다.
-          speech.rate = 0.85; // 음성 속도를 느리게 설정
+          speech.rate = 0.8; // 음성 속도를 느리게 설정
   
           speechSynthesis.speak(speech);
         } else {
           console.error("이 브라우저에서는 SpeechSynthesis를 지원하지 않습니다.");
         }
       };
+
+      const mobileTTS2 = () => {
+        setTimeout(() => {
+          const message = "5, 4, 3, 2, 1";
+      
+          if ("speechSynthesis" in window) {
+            const speech = new SpeechSynthesisUtterance(message);
+            speech.lang = "ko-KR"; // 한국어로 설정, 필요에 따라 조정할 수 있습니다.
+            speech.rate = 0.35; // 음성 속도를 느리게 설정
+      
+            speechSynthesis.speak(speech);
+          } else {
+            console.error("이 브라우저에서는 SpeechSynthesis를 지원하지 않습니다.");
+          }
+        }, 5000); // 3초 (3,000 밀리초) 뒤에 실행
+      };
+      
       return (
         <ButtonContainer>
            <input
@@ -161,8 +185,12 @@ function Record() {
               }}
           />
           {recordedVideoURL && <video controls src={recordedVideoURL} />}
-          <LargerButton onClick={() => inputRef.current.click()}>촬영</LargerButton>
-          <StyledButton onClick={mobileTTS}>안내음성</StyledButton>
+          <LargerButton onClick={() => {
+            mobileTTS();
+            mobileTTS2(); 
+            handleBeepSound(); 
+            inputRef.current.click(); 
+          }}>촬영</LargerButton>
           <Link to="/Loading">
               <StyledButton onClick={uploadVideo}>결과확인</StyledButton>
           </Link>
@@ -229,7 +257,7 @@ function Record() {
     };
 
     // 삐 소리
-    const handleBeepSound = () => {
+    let handleBeepSound = () => {
       new Audio(sound).play();
     };
 
