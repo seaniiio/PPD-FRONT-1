@@ -1,0 +1,16 @@
+.fp-container {
+  height: 100%;
+  background: #f5f5f5;
+}
+.home-tit-container {
+  margin-bottom: 10%;
+}
+.home-tlt {
+  font-size: 3rem;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 8%;
+  font-weight: 800;
+}
+.home-in-container {
+}
