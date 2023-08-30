@@ -52,7 +52,7 @@ const FeatureIcon = styled.span `
 
 const FeatureResult = styled.div`
   text-align: center;
-  width: 200px;
+  width: 280px;
   height: 80px;
   margin: auto;
   margin-top: 20px;
