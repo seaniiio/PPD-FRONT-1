@@ -95,7 +95,7 @@ function Result() {
   // 기록 서버에 저장
   const saveRecord = () => {
     //http://13.125.209.54:8080/api/joint/new
-    fetch('http://localhost:8080/api/joint/new', {
+    fetch('http://13.125.209.54:8080/api/joint/new', {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`,
