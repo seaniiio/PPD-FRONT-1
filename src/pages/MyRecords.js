@@ -1,29 +1,41 @@
 import React from 'react'
 import styled from 'styled-components'
-import Top from '../components/Top'
+import TopBar from '../components/TopBar'
 import personImg from '../images/icon_person.png'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import {FaCircleXmark, FaPersonWalkingWithCane, FaPersonWalking} from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
+
+// 형광펜 효과
+const PointColor = styled.span `
+  background: linear-gradient(to top, #efbff2 40%, transparent 50%)
+`
 
 const MyRecord = styled.div`
   height: 120px;
   background-color: #cce5ff;
-  border-radius: 10px;
+  border-radius: 50px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin: 10px;
+  margin: 20px;
   padding: 20px;
   box-sizing: border-box;
+  box-shadow: 2px 2px 2px 2px grey;
   ${props =>
     props.result === 'abnormal' &&
     `background-color: #ffd6e5;`}
 `
 //이미지를 보여줄 때
 const ShowImage = styled.img`
-  width: 70px;
+  width: 60px;
   height: 100%;
+`
+// 아이콘 보여줄 때
+const ShowIcon = styled.div `
+    position: relative;
+    top: 6px;
 `
 // Record 아래 a
 const MyRecordLink = styled(Link)`
@@ -42,9 +54,8 @@ const PurpleButton = styled.button`
   background-color: #8a2be2;
   color: white;
   border: none;
-  border-radius: 50px;
-  padding: 10px 20px;
-  font-size: 16px;
+  border-radius: 50%;
+  padding: 10px 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
@@ -60,7 +71,7 @@ function MyRecords() {
   // 토큰이 필요한 api요청을 보내는 axios인스턴스
   const recordAxios = axios.create({
     //http://13.125.209.54:8080/api
-    baseURL: 'http://localhost:8080/api',
+    baseURL: 'http://13.125.209.54:8080/api',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('access_token')}`,
     },
@@ -80,54 +91,7 @@ function MyRecords() {
       console.error('Error fetching records:', error)
     }
   }
-  //refresh token api
-  async function postRefreshToken() {
-    const response = await recordAxios.post('/auth/refresh', {
-      refreshToken: localStorage.getItem('refresh_token'),
-    })
-    return response
-  }
   
-  // 토큰의 유효성을 검사하기 위해 intereptor 사용
-  recordAxios.interceptors.response.use(
-    // 200번대 응답이 올때 처리(정상적인 응답일 때)
-    response => {
-      return response
-    },
-    // 200번대 응답이 아닐 경우 처리
-    async error => {
-      const {
-        config, // 기존에 수행하려 했던 작업
-        response: { status }, //
-      } = error
-
-      // 토큰이 만료되을 때
-      if (status === 401) {
-        // 토큰이 만료된 경우의 조건을 넣기
-        if (error.response.data.message === 'Unauthorized') {
-          const originRequest = config
-          //리프레시 토큰 api
-          const response = await postRefreshToken()
-          //리프레시 토큰 요청이 성공할 때
-          if (response.status === 200) {
-            const newAccessToken = response.data.token 
-            localStorage.setItem('access_token', response.data.token) 
-            localStorage.setItem('refresh_token', response.data.refreshToken) 
-            axios.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`
-            //진행중이던 요청 이어서하기
-            originRequest.headers.Authorization = `Bearer ${newAccessToken}`
-            return axios(originRequest)
-            //리프레시 토큰 요청이 실패할때(리프레시 토큰도 만료되었을때 = 재로그인 안내)
-          } else if (response.status === 404) {
-            window.location.replace('/sign-in')
-          } else {
-            //alert(LOGIN.MESSAGE.ETC);
-          }
-        }
-      }
-      return Promise.reject(error)
-    }
-  )
 
   // Function to delete a record
   const deleteRecord = async recordIdx => {
@@ -144,10 +108,10 @@ function MyRecords() {
 
   return (
     <div>
-      <Top state="visible" text="보행기록"></Top>
+      <TopBar text="보행기록"></TopBar>
       <div>
         <h3 style={{ margin: '20px' }}>
-          {records.length}개의 기록이 있습니다.
+          <PointColor><span style={{"fontSize":"30px"}}>{records.length}</span>개의 기록이 있습니다.</PointColor>
         </h3>
         {records.map((it, idx) => (
           <MyRecord
@@ -164,10 +128,12 @@ function MyRecords() {
                   결과 :{it.created_date} {it.result === 0 ? '' : '비'}정상
                 </p>
               </div>
-              <ShowImage src={personImg}></ShowImage>
+              <ShowIcon>
+                {it.result === 0 ? <FaPersonWalking size="70"/> : <FaPersonWalkingWithCane size="70"/>}
+              </ShowIcon>
             </MyRecordLink>
             <PurpleButton onClick={() => deleteRecord(it.idx)}>
-              삭제
+              <FaCircleXmark size="24"/>
             </PurpleButton>
           </MyRecord>
         ))}

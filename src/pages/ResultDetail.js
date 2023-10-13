@@ -1,5 +1,5 @@
 import '../App.css';
-import Top from '../components/Top'
+import TopBar from '../components/TopBar'
 import Button from '../components/Button'
 import styled from 'styled-components';
 import '../styles/Loading.css'
@@ -46,8 +46,8 @@ const chart = {
             }
         }
         },
-        colors: ['#6b9ccf', '#7d7c7c', '#cf7897'],
-        labels: ['정상', '결과', '비정상'],
+        colors: ['#6b9ccf', '#cf7897', '#7d7c7c'],
+        labels: ['정상', '비정상', '결과'],
         responsive: [{
             breakpoint: 480,
             options: {
@@ -71,7 +71,7 @@ function ResultDetail() {
         const abnormal = record.abnormalValues[e];
         const max = Math.max(actual, normal, abnormal);
 
-        return [(normal / max) * 100, (actual / max) * 100, (abnormal / max) * 100]
+        return [(normal / max) * 100, (abnormal / max) * 100, (actual / max) * 100]
     }
 
     function description(idx) {
@@ -89,7 +89,7 @@ function ResultDetail() {
 
     return (
         <div>
-            <Top state='visible' text="상세결과" home="true" back="true"></Top>
+            <TopBar text="상세결과"></TopBar>
 
             <GraphSpace>
                 <ReactApexChart 

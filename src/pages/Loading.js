@@ -1,5 +1,5 @@
 import '../App.css';
-import Top from '../components/Top'
+import TopBar from '../components/TopBar'
 import '../styles/Loading.css'
 
 // 결과 받아서 정상이면 -> Normal.js
@@ -8,7 +8,7 @@ import '../styles/Loading.css'
 function Loading() {
     return (
         <div>
-            <Top state='visible'></Top>
+            <TopBar text='분석중'></TopBar>
             <div className="textShow">결과를 계산중입니다.</div>
             <div className="svg-loader">
                 <svg className="svg-container" height="100" width="100" viewBox="0 0 100 100">
